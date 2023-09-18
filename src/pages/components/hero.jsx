@@ -5,16 +5,15 @@ import {
   Text,
   Button,
   Stack,
-  Icon,
-  useColorModeValue,
   createIcon,
   Center,
   Flex,
 } from '@chakra-ui/react'
-import Navbar from './navbar'
-import Navbar2 from './navbarv2'
+import '@fontsource/staatliches';
+import '@fontsource-variable/playfair';
+import NavBar from './navbar';
 
-export default function CallToActionWithAnnotation() {
+export default function Hero() {
   return (
     <>
       <Container maxW={'100%'} bgColor={'#04A777'}>
@@ -22,18 +21,19 @@ export default function CallToActionWithAnnotation() {
           as={Box}
           textAlign={'center'}
           spacing={{ base: 8, md: 14 }}
-          py={{ base: 20, md: 36 }}>
-            <Navbar />
-            <Navbar2 />
+          pb={{base: 8, md: 14}}>
+            <NavBar />
           <Heading
-            fontWeight={600}
-            fontSize={{ base: '8xl', sm: '4xl', md: '6xl' }}
+            fontFamily={'Staatliches'}
+            fontWeight={200}
+            fontSize={{ base: '6xl', sm: '4xl', md: '9xl' }}
+            letterSpacing={'0.125em'}
             lineHeight={'110%'}>
             PRINT YOUR SUCCESS <br />
           </Heading>
           <Flex>
             <Center>
-          <Text color={'gray.500'} maxW={'50%'}>
+          <Text color={'#291720'} maxW={'50%'} fontFamily={'Playfair'} fontSize={{ base: 'lg', sm: 'md', md: 'lg' }}>
             Welcome to Global Grafika, your one-stop solution for all your B2B digital printing needs. 
             With a focus on brochures, banners, and business cards, 
             we cater to businesses that understand the importance of top-quality printing.
@@ -47,16 +47,16 @@ export default function CallToActionWithAnnotation() {
             alignSelf={'center'}
             position={'relative'}>
             <Button
-              colorScheme={'green'}
-              bg={'green.400'}
+              bg={'#820263'}
+              color={'white'}
               rounded={'full'}
               px={6}
               _hover={{
-                bg: 'green.500',
+                bg: '#FF94E4',
               }}>
-              Browse Services
+              Browse Products
             </Button>
-            <Button variant={'link'} size={'sm'}>
+            <Button color={'white'} variant={'link'} size={'sm'}>
               Learn more
             </Button>
           </Stack>

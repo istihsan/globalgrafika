@@ -9,97 +9,116 @@ import {
   Text,
   useColorModeValue,
   Description,
+  chakra,
+  Link
 
 } from '@chakra-ui/react'
-import { ReactElement } from 'react'
-import {
-  FcAbout,
-  FcAssistant,
-  FcCollaboration,
-  FcDonate,
-  FcManager,
-} from 'react-icons/fc'
 
-const Card = () => {
+const productCard  = () => {
   return (
+    <Flex
+      bg="#edf3f8"
+      _dark={{
+      bg: "#3e3e3e",
+      }}
+      p={50}
+      w="full"
+      alignItems="center"
+      justifyContent="center"
+      >
+  <Box
+    bg="white"
+    _dark={{bg: "gray.800"}}
+    mx={{lg: 8,}}
+    display={{
+      lg: "flex",
+    }}
+    maxW={{
+      lg: "5xl",
+    }}
+    shadow={{
+      lg: "lg",
+    }}
+    rounded={{
+      lg: "lg",
+    }}
+  >
     <Box
-      maxW={{ base: 'full', md: '275px' }}
-      w={'full'}
-      borderWidth="1px"
-      borderRadius="lg"
-      overflow="hidden"
-      p={5}>
-      <Stack align={'start'} spacing={2}>
-        <Flex
-          w={16}
-          h={16}
-          align={'center'}
-          justify={'center'}
-          color={'white'}
-          rounded={'full'}
-          bg={useColorModeValue('gray.100', 'gray.700')}>
-        </Flex>
-        <Box mt={2}>
-          <Heading size="md"></Heading>
-          <Text mt={1} fontSize={'sm'}>
-            
-          </Text>
-        </Box>
-        <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
-          Learn more
-        </Button>
-      </Stack>
+      w={{
+        lg: "50%",
+      }}
+    >
+      <Box
+        h={{
+          base: 64,
+          lg: "full",
+        }}
+        rounded={{
+          lg: "lg",
+        }}
+        bgSize="cover"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1593642532400-2682810df593?ixlib=rb-1.2.1&ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80')",
+        }}
+      ></Box>
     </Box>
+
+    <Box
+      py={12}
+      px={6}
+      maxW={{
+        base: "xl",
+        lg: "5xl",
+      }}
+      w={{
+        lg: "50%",
+      }}
+    >
+      <chakra.h2
+        fontSize={{
+          base: "2xl",
+          md: "3xl",
+        }}
+        color="gray.800"
+        _dark={{
+          color: "white",
+        }}
+        fontWeight="bold"
+      >
+        Build Your New Brochures
+      </chakra.h2>
+      <chakra.p
+        mt={4}
+        color="gray.600"
+        _dark={{
+          color: "gray.400",
+        }}
+      >
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem modi
+        reprehenderit vitae exercitationem aliquid dolores ullam temporibus enim
+        expedita aperiam mollitia iure consectetur dicta tenetur, porro
+        consequuntur saepe accusantium consequatur.
+      </chakra.p>
+
+      <Box mt={8}>
+      <Button
+              bg={'#820263'}
+              color={'white'}
+              rounded={'full'}
+              px={6}
+              _hover={{
+                bg: '#FF94E4',
+              }}>
+                Order Now
+                </Button>
+      </Box>
+    </Box>
+  </Box>
+</Flex>
+// =====================================================================================================================================================================
+// ==========================================================================================================================================================
   )
 }
 
-export default function gridListWith() {
-  return (
-    <Box p={4}>
-      <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
-        <Heading fontSize={{ base: '2xl', sm: '4xl' }} fontWeight={'bold'}>
-          Short heading
-        </Heading>
-        <Text color={'gray.600'} fontSize={{ base: 'sm', sm: 'lg' }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis obcaecati ut
-          cupiditate pariatur, dignissimos, placeat amet officiis.
-        </Text>
-      </Stack>
-
-      <Container maxW={'5xl'} mt={12}>
-        <Flex flexWrap="wrap" gridGap={6} justify="center">
-          <Card
-            heading={'Heading'}
-            icon={<Icon as={FcAssistant} w={10} h={10} />}
-            description={'Lorem ipsum dolor sit amet catetur, adipisicing elit.'}
-            href={'#'}
-          />
-          <Card
-            heading={'Heading'}
-            icon={<Icon as={FcCollaboration} w={10} h={10} />}
-            description={'Lorem ipsum dolor sit amet catetur, adipisicing elit.'}
-            href={'#'}
-          />
-          <Card
-            heading={'Heading'}
-            icon={<Icon as={FcDonate} w={10} h={10} />}
-            description={'Lorem ipsum dolor sit amet catetur, adipisicing elit.'}
-            href={'#'}
-          />
-          <Card
-            heading={'Heading'}
-            icon={<Icon as={FcManager} w={10} h={10} />}
-            description={'Lorem ipsum dolor sit amet catetur, adipisicing elit.'}
-            href={'#'}
-          />
-          <Card
-            heading={'Heading'}
-            icon={<Icon as={FcAbout} w={10} h={10} />}
-            description={'Lorem ipsum dolor sit amet catetur, adipisicing elit.'}
-            href={'#'}
-          />
-        </Flex>
-      </Container>
-    </Box>
-  )
-}
+export default productCard;
