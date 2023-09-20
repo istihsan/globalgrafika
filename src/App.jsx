@@ -12,6 +12,7 @@ import {
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
 import Home from './pages/home';
+import Dashboard from './pages/dashboard';
 
 function App() {
   return (

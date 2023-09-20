@@ -27,13 +27,15 @@ export default function FrequentlyAskedQuestion() {
               alignItems="center"
               justifyContent="space-between"
               p={4}>
-              <Text fontSize="md">What is Chakra UI?</Text>
+              <Text fontSize="md">Lorem Ipsum ?</Text>
               <ChevronDownIcon fontSize="24px" />
             </AccordionButton>
             <AccordionPanel pb={4}>
               <Text color="gray.600">
-                Chakra UI is a simple and modular component library that gives developers
-                the building blocks they need to create web applications.
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem modi
+          reprehenderit vitae exercitationem aliquid dolores ullam temporibus enim
+          expedita aperiam mollitia iure consectetur dicta tenetur, porro
+          consequuntur saepe accusantium consequatur.
               </Text>
             </AccordionPanel>
           </AccordionItem>
@@ -43,14 +45,15 @@ export default function FrequentlyAskedQuestion() {
               alignItems="center"
               justifyContent="space-between"
               p={4}>
-              <Text fontSize="md">What advantages to use?</Text>
+              <Text fontSize="md">Lorem Ipsum ?</Text>
               <ChevronDownIcon fontSize="24px" />
             </AccordionButton>
             <AccordionPanel pb={4}>
               <Text color="gray.600">
-                Chakra UI offers a variety of advantages including ease of use,
-                accessibility, and customization options. It also provides a comprehensive
-                set of UI components and is fully compatible with React.
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem modi
+          reprehenderit vitae exercitationem aliquid dolores ullam temporibus enim
+          expedita aperiam mollitia iure consectetur dicta tenetur, porro
+          consequuntur saepe accusantium consequatur.
               </Text>
             </AccordionPanel>
           </AccordionItem>
@@ -60,15 +63,15 @@ export default function FrequentlyAskedQuestion() {
               alignItems="center"
               justifyContent="space-between"
               p={4}>
-              <Text fontSize="md">How to start using Chakra UI?</Text>
+              <Text fontSize="md">Lorem Ipsum ?</Text>
               <ChevronDownIcon fontSize="24px" />
             </AccordionButton>
             <AccordionPanel pb={4}>
               <Text color="gray.600">
-                To get started with Chakra UI, you can install it via npm or yarn, and
-                then import the components you need in your project. The Chakra UI
-                documentation is also a great resource for getting started and learning
-                more about the library.
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem modi
+          reprehenderit vitae exercitationem aliquid dolores ullam temporibus enim
+          expedita aperiam mollitia iure consectetur dicta tenetur, porro
+          consequuntur saepe accusantium consequatur.
               </Text>
             </AccordionPanel>
           </AccordionItem>

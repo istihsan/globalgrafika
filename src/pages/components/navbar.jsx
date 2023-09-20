@@ -67,6 +67,7 @@ const MenuLinks = ({ isOpen }) => {
         justify={["center", "space-between", "flex-end", "flex-end"]}
         direction={["column", "row", "row", "row"]}
         pt={[4, 4, 0, 0]}
+        color={'blackAlpha.500'}
         >
         <MenuItem to="/">Home</MenuItem>
         <MenuItem to="/how"> Products </MenuItem>

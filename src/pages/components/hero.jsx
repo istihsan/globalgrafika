@@ -11,12 +11,13 @@ import {
 } from '@chakra-ui/react'
 import '@fontsource/staatliches';
 import '@fontsource-variable/playfair';
+import BackgroundHero from '../../images/white-abstract-background-with-hexagon-pattern-style-seamless-concept_7505-1703.avif'
 import NavBar from './navbar';
+
 
 export default function Hero() {
   return (
-    <>
-      <Container maxW={'100%'} bgColor={'#04A777'}>
+      <Container maxW={'100%'} bgColor={'#04A777'} bgImage={BackgroundHero} zIndex={'-9999'}>
         <Stack
           as={Box}
           textAlign={'center'}
@@ -62,7 +63,6 @@ export default function Hero() {
           </Stack>
         </Stack>
       </Container>
-    </>
   )
 }
 
