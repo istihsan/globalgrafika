@@ -15,9 +15,9 @@ import BackgroundHero from '../../images/white-abstract-background-with-hexagon-
 import NavBar from './navbar';
 
 
-export default function Hero() {
+export default function HeroProduct() {
   return (
-      <Container maxW={'100%'} bgColor={'#009DFF'} bgImage={BackgroundHero} zIndex={'-9999'}>
+      <Container maxW={'100%'} bgColor={'#04A777'} bgImage={BackgroundHero} zIndex={'-9999'}>
         <Stack
           as={Box}
           textAlign={'center'}
@@ -31,17 +31,8 @@ export default function Hero() {
             fontSize={{ base: '6xl', sm: '4xl', md: '9xl' }}
             letterSpacing={'0.125em'}
             lineHeight={'110%'}>
-            PRINT YOUR SUCCESS <br />
+            WHAT WE HAVE TO OFFER <br />
           </Heading>
-          <Flex>
-            <Center>
-          <Text color={'#291720'} maxW={'50%'} pl={{base: 12, md: 24}} fontFamily={'Playfair'} fontSize={{ base: 'lg', sm: 'md', md: 'lg' }}>
-            Welcome to Global Grafika, your one-stop solution for all your B2B digital printing needs. 
-            With a focus on brochures, banners, and business cards, 
-            we cater to businesses that understand the importance of top-quality printing.
-          </Text>
-          </Center>
-          </Flex>
           <Stack
             direction={'column'}
             spacing={3}
@@ -49,12 +40,12 @@ export default function Hero() {
             alignSelf={'center'}
             position={'relative'}>
             <Button
-              bgGradient="linear(to-t, #009DFF, #0078C2, #005285)"
+              bg={'#820263'}
               color={'white'}
               rounded={'full'}
               px={6}
               _hover={{
-                bgGradient:"linear(to-b, #009DFF, #0078C2, #005285)",
+                bg: '#FF94E4',
               }}>
               Browse Products
             </Button>

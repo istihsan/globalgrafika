@@ -67,10 +67,10 @@ const MenuLinks = ({ isOpen }) => {
         justify={["center", "space-between", "flex-end", "flex-end"]}
         direction={["column", "row", "row", "row"]}
         pt={[4, 4, 0, 0]}
-        color={'blackAlpha.500'}
+        color={'blackAlpha.700'}
         >
         <MenuItem to="/">Home</MenuItem>
-        <MenuItem to="/how"> Products </MenuItem>
+        <MenuItem to="/products"> Products </MenuItem>
         <MenuItem to="/faetures"> F.A.Q </MenuItem>
         <MenuItem to="/signup" isLast>
             <Button
@@ -78,11 +78,11 @@ const MenuLinks = ({ isOpen }) => {
               p={'4'}
               size="sm"
               rounded="md"
-              color={['black']}
-              bg={["white", "white", "primary.500", "primary.500"]}
+              color={['white']}
+              bg={["black"]}
               _hover={{
-                bg: "black",
-                color: "white"
+                bg: "white",
+                color: "black"
               }}
               >
               Contact Us!

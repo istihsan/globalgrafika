@@ -16,10 +16,8 @@ import {
 export default function footer() {
   return (
     <Box
-  bg="#04A777"
-  _dark={{
-    bg: "gray.600",
-  }}
+    bgGradient="linear(to-t, #009DFF, #82CAF8, #ADE0FF)"
+  _dark={{bg: "gray.600",}}
 >
   <Stack
     direction={{
@@ -30,7 +28,7 @@ export default function footer() {
     justify="space-between"
     p={10}
   >
-    <Flex justify="center">
+    <Flex justify="center" mb={"-2"}>
       <Image
         src="http://placehold.jp/2a2a2c/ffffff/200x100.png?text=Company%20Logo&css=%7B%22font-size%20%22%3A%22%2016px%22%7D"
         alt="Company Logo"
@@ -104,15 +102,6 @@ export default function footer() {
       </Flex>
     </HStack>
   </Stack>
-  <Divider
-    w="95%"
-    mx="auto"
-    color="gray.600"
-    _dark={{
-      color: "#F9FAFB",
-    }}
-    h="3.5px"
-  />
   <VStack py={3}>
     <HStack justify="center">
       <Link>

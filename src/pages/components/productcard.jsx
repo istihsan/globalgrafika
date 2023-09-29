@@ -30,18 +30,11 @@ const productCard  = () => {
     bg="white"
     _dark={{bg: "gray.800"}}
     mx={{lg: 8,}}
-    display={{
-      lg: "flex",
-    }}
-    maxW={{
-      lg: "5xl",
-    }}
-    shadow={{
-      lg: "lg",
-    }}
-    rounded={{
-      lg: "lg",
-    }}
+    display={{lg: "flex"}}
+    maxW={{lg: "5xl",}}
+    shadow={{lg: "lg",}}
+    rounded={{lg: "lg",}}
+    mb={{base: 8, md: 14}}
   >
     <Box
       w={{
@@ -103,12 +96,12 @@ const productCard  = () => {
 
       <Box mt={8}>
       <Button
-              bg={'#820263'}
+              bgGradient="linear(to-t, #009DFF, #0078C2, #005285)"
               color={'white'}
               rounded={'full'}
               px={6}
               _hover={{
-                bg: '#FF94E4',
+                bgGradient:"linear(to-b, #009DFF, #0078C2, #005285)",
               }}>
                 Order Now
                 </Button>
@@ -116,8 +109,6 @@ const productCard  = () => {
     </Box>
   </Box>
 </Flex>
-// =====================================================================================================================================================================
-// ==========================================================================================================================================================
   )
 }
 

@@ -1,26 +1,10 @@
 import {
     Box,
     Button,
-    Container,
     Flex,
-    Heading,
-    Icon,
-    Stack,
-    Text,
-    useColorModeValue,
-    Description,
     chakra,
-    Link
   
   } from '@chakra-ui/react'
-  import { ReactElement } from 'react'
-  import {
-    FcAbout,
-    FcAssistant,
-    FcCollaboration,
-    FcDonate,
-    FcManager,
-  } from 'react-icons/fc'
   
   const ProductCardH  = () => {
     return (
@@ -112,12 +96,12 @@ import {
   
         <Box mt={8}>
         <Button
-                bg={'#820263'}
+                bgGradient="linear(to-t, #009DFF, #0078C2, #005285)"
                 color={'white'}
                 rounded={'full'}
                 px={6}
                 _hover={{
-                  bg: '#FF94E4',
+                  bgGradient:"linear(to-b, #009DFF, #0078C2, #005285)",
                 }}>
                   Order Now
                   </Button>
@@ -201,12 +185,12 @@ import {
   
         <Box mt={8}>
         <Button
-                bg={'#820263'}
+                bgGradient="linear(to-t, #009DFF, #0078C2, #005285)"
                 color={'white'}
                 rounded={'full'}
                 px={6}
                 _hover={{
-                  bg: '#FF94E4',
+                  bgGradient:"linear(to-b, #009DFF, #0078C2, #005285)",
                 }}>
                   Order Now
                   </Button>
