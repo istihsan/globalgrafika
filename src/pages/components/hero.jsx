@@ -24,7 +24,7 @@ export default function Hero() {
           spacing={{ base: 8, md: 14 }}
           pb={{base: 8, md: 14}}
           pl={{base: 8, md: 14}}>
-            <NavBar />
+          <NavBar />
           <Heading
             fontFamily={'Staatliches'}
             fontWeight={200}

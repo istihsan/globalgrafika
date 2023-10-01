@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Box, Flex, Image, IconButton, Text } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import image1 from '../../images/brochureCarousel/image1.jpg'
+import image2 from '../../images/brochureCarousel/image2.png'
 
 const images = [
   {
@@ -9,7 +10,7 @@ const images = [
     caption: 'Image 1 Caption',
   },
   {
-    url: 'image2.jpg',
+    url: image2,
     caption: 'Image 2 Caption',
   },
   {
@@ -47,6 +48,7 @@ function Carousel() {
       width={['100%', '75%']} // Responsive width
       mx="auto"
       overflow="hidden"
+      minH="50vh"
     >
       <Flex
         alignItems="center"
