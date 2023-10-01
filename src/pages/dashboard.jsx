@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import dashboardNav from "./components/dashboardNav";
+import DashboardNav from "./components/dashboardNav.tsx";
 
 const Dashboard = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   return (
     <>
-    <dashboardNav />
+    <DashboardNav />
     </>
   );
 };

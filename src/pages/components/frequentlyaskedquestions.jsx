@@ -18,7 +18,7 @@ export default function FrequentlyAskedQuestion() {
       p={5}
       align={'center'}
       justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}>
+      bgGradient="linear(to-b, #EFF6FA, #E0F3FF, #ADE0FF)">
       <Container>
         <Accordion allowMultiple width="100%" maxW="lg" rounded="lg">
           <AccordionItem>

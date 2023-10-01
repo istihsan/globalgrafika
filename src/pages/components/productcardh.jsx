@@ -9,10 +9,7 @@ import {
   const ProductCardH  = () => {
     return (
       <Flex
-        bg="#edf3f8"
-        _dark={{
-        bg: "#3e3e3e",
-        }}
+      bgGradient={'radial(#E0F3FF, #E0F3FF, #FFFFFF)'}
         p={50}
         mt={'-5%'}
         w="full"

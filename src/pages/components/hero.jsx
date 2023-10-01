@@ -18,7 +18,7 @@ import NavBar from './navbar';
 
 export default function Hero() {
   return (
-      <Container maxW={'100%'} bgColor={'#009DFF'} bgImage={BackgroundHero} zIndex={'-9999'}>
+      <Container maxW={'100%'} bgGradient={'radial(#47B6FA, #E0F3FF, #FFFFFF)'} zIndex={'-9999'}>
         <Stack
           as={Box}
           textAlign={'center'}

@@ -17,10 +17,7 @@ import {
 const productCard  = () => {
   return (
     <Flex
-      bg="#edf3f8"
-      _dark={{
-      bg: "#3e3e3e",
-      }}
+    bgGradient={'radial(#47B6FA, #E0F3FF, #FFFFFF)'}
       p={50}
       w="full"
       alignItems="center"
