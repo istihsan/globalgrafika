@@ -23,7 +23,7 @@ export default function HeroProduct() {
           textAlign={'center'}
           spacing={{ base: 8, md: 14 }}
           pb={{base: 8, md: 14}}
-          pl={{base: 8, md: 14}}>
+          px={{base: 8, md: 14}}>
             <NavBar />
           <Heading
             fontFamily={'Staatliches'}
@@ -40,15 +40,15 @@ export default function HeroProduct() {
             alignSelf={'center'}
             position={'relative'}>
             <Button
-              bg={'#820263'}
-              color={'white'}
-              rounded={'full'}
-              px={6}
-              _hover={{
-                bg: '#FF94E4',
-              }}>
-              Browse Products
-            </Button>
+                bgGradient="linear(to-t, #009DFF, #0078C2, #005285)"
+                color={'white'}
+                rounded={'full'}
+                px={6}
+                _hover={{
+                  bgGradient:"linear(to-b, #009DFF, #0078C2, #005285)",
+                }}>
+                Browse Products
+              </Button>
             <Button color={'white'} variant={'link'} size={'sm'}>
               Learn more
             </Button>

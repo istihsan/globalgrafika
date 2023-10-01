@@ -65,12 +65,12 @@ export default function footer() {
       }}
     >
       <Flex justify="start" direction="column">
-        <Link textTransform="uppercase">Pre-Sale FAQS</Link>
-        <Link textTransform="uppercase">Submit a ticket</Link>
+        <Link textTransform="uppercase" href='/'>Home</Link>
+        <Link textTransform="uppercase" href='/products'>Products</Link>
       </Flex>
       <Flex justify="start" direction="column">
-        <Link textTransform="uppercase">Services</Link>
-        <Link textTransform="uppercase">Theme Tweak</Link>
+        <Link textTransform="uppercase" href='/faq'>FAQ</Link>
+        <Link textTransform="uppercase" href='/contactform'>Contact Us</Link>
       </Flex>
     </HStack>
     <HStack
@@ -91,14 +91,14 @@ export default function footer() {
       }}
     >
       <Flex justify="start" direction="column">
-        <Link textTransform="uppercase">Show Case</Link>
-        <Link textTransform="uppercase">Widget Kit</Link>
-        <Link textTransform="uppercase">Support</Link>
+        <Link textTransform="uppercase" href='/brochures'>Brochures</Link>
+        <Link textTransform="uppercase" href='/banners'>Banners</Link>
+        <Link textTransform="uppercase" href='/signage'>Signage</Link>
       </Flex>
       <Flex justify="start" direction="column">
-        <Link textTransform="uppercase">About Us</Link>
-        <Link textTransform="uppercase">Contact Us</Link>
-        <Link textTransform="uppercase">Resources</Link>
+        <Link textTransform="uppercase" href='/aboutus'>About Us</Link>
+        <Link textTransform="uppercase" href='/portofolio'>Portofolio Showcase</Link>
+        <Link textTransform="uppercase" href='/testimonials'>Testimonials</Link>
       </Flex>
     </HStack>
   </Stack>

@@ -8,6 +8,7 @@ import {
   createIcon,
   Center,
   Flex,
+  Link,
 } from '@chakra-ui/react'
 import '@fontsource/staatliches';
 import '@fontsource-variable/playfair';
@@ -23,7 +24,7 @@ export default function Hero() {
           textAlign={'center'}
           spacing={{ base: 8, md: 14 }}
           pb={{base: 8, md: 14}}
-          pl={{base: 8, md: 14}}>
+          px={{base: 8, md: 14}}>
           <NavBar />
           <Heading
             fontFamily={'Staatliches'}
@@ -34,12 +35,10 @@ export default function Hero() {
             PRINT YOUR SUCCESS <br />
           </Heading>
           <Flex>
-            <Center>
-          <Text color={'#291720'} maxW={'50%'} pl={{base: 12, md: 24}} fontFamily={'Playfair'} fontSize={{ base: 'lg', sm: 'md', md: 'lg' }}>
+            <Center color={'#291720'} w={''} fontFamily={'Playfair'} fontSize={{ base: 'lg', sm: 'md', md: 'lg' }}>
             Welcome to Global Grafika, your one-stop solution for all your B2B digital printing needs. 
             With a focus on brochures, banners, and business cards, 
             we cater to businesses that understand the importance of top-quality printing.
-          </Text>
           </Center>
           </Flex>
           <Stack
@@ -48,16 +47,18 @@ export default function Hero() {
             align={'center'}
             alignSelf={'center'}
             position={'relative'}>
-            <Button
-              bgGradient="linear(to-t, #009DFF, #0078C2, #005285)"
-              color={'white'}
-              rounded={'full'}
-              px={6}
-              _hover={{
-                bgGradient:"linear(to-b, #009DFF, #0078C2, #005285)",
-              }}>
-              Browse Products
-            </Button>
+            <Link href='/products'>
+              <Button
+                bgGradient="linear(to-t, #009DFF, #0078C2, #005285)"
+                color={'white'}
+                rounded={'full'}
+                px={6}
+                _hover={{
+                  bgGradient:"linear(to-b, #009DFF, #0078C2, #005285)",
+                }}>
+                Browse Products
+              </Button>
+            </Link>
             <Button color={'white'} variant={'link'} size={'sm'}>
               Learn more
             </Button>
