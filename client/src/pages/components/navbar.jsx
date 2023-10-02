@@ -1,15 +1,17 @@
-import React from "react";
-import { 
-  Link, 
-  Box, 
+import React from 'react';
+import {
+  Link,
+  Box,
   Flex,
   Text,
   Button,
-  Stack 
-} from "@chakra-ui/react";
+  Stack,
+  useColorMode,
+} from '@chakra-ui/react';
 
-const NavBar = (props) => {
+const NavBar = props => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const { colorMode, toggleColorMode } = useColorMode();
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -45,13 +47,13 @@ const MenuIcon = () => (
 
 const MenuToggle = ({ toggle, isOpen }) => {
   return (
-    <Box display={{ base: "block", md: "none" }} onClick={toggle}>
+    <Box display={{ base: 'block', md: 'none' }} onClick={toggle}>
       {isOpen ? <CloseIcon /> : <MenuIcon />}
     </Box>
   );
 };
 
-const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
+const MenuItem = ({ children, isLast, to = '/', ...rest }) => {
   return (
     <Link href={to}>
       <Text display="block" {...rest}>
@@ -64,36 +66,36 @@ const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
 const MenuLinks = ({ isOpen }) => {
   return (
     <Box
-    display={{ base: isOpen ? "block" : "none", md: "block" }}
-    flexBasis={{ base: "100%", md: "auto" }}
+      display={{ base: isOpen ? 'block' : 'none', md: 'block' }}
+      flexBasis={{ base: '100%', md: 'auto' }}
     >
       <Stack
         spacing={8}
         display={'flex'}
         align="stretch"
-        justify={["center", "space-between", "flex-end", "flex-end"]}
-        direction={["column", "row", "row", "row"]}
+        justify={['center', 'space-between', 'flex-end', 'flex-end']}
+        direction={['column', 'row', 'row', 'row']}
         pt={[4, 4, 0, 0]}
         color={'blackAlpha.700'}
-        >
+      >
         <MenuItem to="/">Home</MenuItem>
         <MenuItem to="/products"> Products </MenuItem>
         <MenuItem to="/faetures"> F.A.Q </MenuItem>
         <MenuItem to="/signup" isLast>
-            <Button
-              mt={'-5%'}
-              p={'4'}
-              size="sm"
-              rounded="md"
-              color={['white']}
-              bg={["black"]}
-              _hover={{
-                bg: "white",
-                color: "black"
-              }}
-              >
-              Contact Us!
-            </Button>
+          <Button
+            mt={'-5%'}
+            p={'4'}
+            size="sm"
+            rounded="md"
+            color={['white']}
+            bg={['black']}
+            _hover={{
+              bg: 'white',
+              color: 'black',
+            }}
+          >
+            Contact Us!
+          </Button>
         </MenuItem>
       </Stack>
     </Box>
@@ -110,8 +112,8 @@ const NavBarContainer = ({ children, ...props }) => {
       w="100%"
       mb={8}
       p={8}
-      bg={["primary.500", "primary.500", "transparent", "transparent"]}
-      color={["white", "white", "primary.700", "primary.700"]}
+      bg={['primary.500', 'primary.500', 'transparent', 'transparent']}
+      color={['white', 'white', 'primary.700', 'primary.700']}
       {...props}
     >
       {children}

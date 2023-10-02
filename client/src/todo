@@ -1,0 +1,9 @@
+Dashboard page :
+Sidebar harusnya menu dropdown dashboard, settings, dkk
+button add
+
+Jangan Lupa Indent, SSH Keys
+Host github.com
+AddKeysToAgent yes
+UseKeychain yes
+IdentityFile ~/.ssh/id_ed25519_github
