@@ -1,17 +1,8 @@
 import {
   Box,
   Button,
-  Container,
   Flex,
-  Heading,
-  Icon,
-  Stack,
-  Text,
-  useColorModeValue,
-  Description,
   chakra,
-  Link
-
 } from '@chakra-ui/react'
 
 const productCard  = () => {

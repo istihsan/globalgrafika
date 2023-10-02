@@ -1,13 +1,11 @@
 import { 
   Box,
-  Container, 
   Stack, 
   Text, 
   Flex,
   Image,
   Link,
   HStack,
-  Divider,
   VStack,
   Icon
  } from '@chakra-ui/react'

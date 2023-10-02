@@ -1,5 +1,12 @@
 import React from "react";
-import { Link, Box, Flex, Text, Button, Stack, Spacer } from "@chakra-ui/react";
+import { 
+  Link, 
+  Box, 
+  Flex,
+  Text,
+  Button,
+  Stack 
+} from "@chakra-ui/react";
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = React.useState(false);
