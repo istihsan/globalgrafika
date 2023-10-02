@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/product');
-import axios from 'axios';
-
 
 router.post('/', async (req, res) => {
   try {
