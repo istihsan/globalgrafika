@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const db = require("./db/index");
 const Product = require("./models/product");
+const test = require('./routes/tester')
 const app = express();
 const port = 3000;
 const cors = require("cors");
@@ -15,6 +16,7 @@ db.once("open", () => {
 
 app.use(cors());
 
+app.use('/test', test)
 app.get("/products", async (req, res) => {
   try {
     const products = await Product.find();
