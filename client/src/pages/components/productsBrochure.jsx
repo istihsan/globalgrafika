@@ -13,10 +13,6 @@ import {
 export default function ProductsBrochure() {
   return (
     <Flex
-        bg="#edf3f8"
-        _dark={{
-        bg: "#3e3e3e",
-        }}
         p={35}
         w="full"
         alignItems="center"
@@ -24,6 +20,7 @@ export default function ProductsBrochure() {
         >
     <Center py={6}>
       <Box
+      bg="#edf3f8"
         maxW={'445px'}
         w={'full'}
         boxShadow={'2xl'}
@@ -76,6 +73,7 @@ export default function ProductsBrochure() {
     </Center>
     <Center py={6}>
       <Box
+        bg="#edf3f8"
         maxW={'445px'}
         w={'full'}
         boxShadow={'2xl'}

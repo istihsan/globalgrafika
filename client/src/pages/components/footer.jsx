@@ -14,8 +14,10 @@ import {
 export default function footer() {
   return (
     <Box
-    bgGradient="linear(to-t, #009DFF, #82CAF8, #ADE0FF)"
+    bgColor={'#383838'}
   _dark={{bg: "gray.600",}}
+  minWidth={'100%'}
+  
 >
   <Stack
     direction={{
@@ -26,7 +28,7 @@ export default function footer() {
     justify="space-between"
     p={10}
   >
-    <Flex justify="center" mb={"-2"}>
+    <Flex justify="center" mb={"-2"} color={'whiteAlpha.100'}>
       <Image
         src="http://placehold.jp/2a2a2c/ffffff/200x100.png?text=Company%20Logo&css=%7B%22font-size%20%22%3A%22%2016px%22%7D"
         alt="Company Logo"
@@ -62,11 +64,11 @@ export default function footer() {
         md: "left",
       }}
     >
-      <Flex justify="start" direction="column">
+      <Flex justify="start" direction="column" color={'whiteAlpha.700'}>
         <Link textTransform="uppercase" href='/'>Home</Link>
         <Link textTransform="uppercase" href='/products'>Products</Link>
       </Flex>
-      <Flex justify="start" direction="column">
+      <Flex justify="start" direction="column" color={'whiteAlpha.700'}>
         <Link textTransform="uppercase" href='/faq'>FAQ</Link>
         <Link textTransform="uppercase" href='/contactform'>Contact Us</Link>
       </Flex>
@@ -88,12 +90,12 @@ export default function footer() {
         md: "left",
       }}
     >
-      <Flex justify="start" direction="column">
+      <Flex justify="start" direction="column" color={'whiteAlpha.700'}>
         <Link textTransform="uppercase" href='/brochures'>Brochures</Link>
         <Link textTransform="uppercase" href='/banners'>Banners</Link>
         <Link textTransform="uppercase" href='/signage'>Signage</Link>
       </Flex>
-      <Flex justify="start" direction="column">
+      <Flex justify="start" direction="column" color={'whiteAlpha.700'}>
         <Link textTransform="uppercase" href='/aboutus'>About Us</Link>
         <Link textTransform="uppercase" href='/portofolio'>Portofolio Showcase</Link>
         <Link textTransform="uppercase" href='/testimonials'>Testimonials</Link>
@@ -104,7 +106,7 @@ export default function footer() {
     <HStack justify="center">
       <Link>
         <Icon
-          color="gray.800"
+          color={'whiteAlpha.700'}
           _dark={{
             color: "white",
           }}
@@ -115,7 +117,7 @@ export default function footer() {
       </Link>
       <Link>
         <Icon
-          color="gray.800"
+          color={'whiteAlpha.700'}
           _dark={{
             color: "white",
           }}
@@ -126,6 +128,7 @@ export default function footer() {
       </Link>
       <Link>
         <Icon
+          color={'whiteAlpha.700'}
           _dark={{
             color: "white",
           }}
@@ -136,6 +139,7 @@ export default function footer() {
       </Link>
       <Link>
         <Icon
+          color={'whiteAlpha.700'}
           _dark={{
             color: "white",
           }}
@@ -149,6 +153,7 @@ export default function footer() {
     <Text
       textAlign="center"
       fontSize="smaller"
+      color={'whiteAlpha.700'}
       _dark={{
         color: "white",
       }}

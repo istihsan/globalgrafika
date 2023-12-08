@@ -6,7 +6,7 @@ import {
 } from '@chakra-ui/react';
 import Home from './pages/home';
 import Dashboard from './pages/dashboard';
-import Products from './pages/products';
+import AboutUs from './pages/aboutUs';
 import NotFound from './pages/notFound';
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
-          <Route exact path="/products" element={<Products />} />
+          <Route exact path="/aboutus" element={<AboutUs />} />
           <Route exact path="/notfound" element={<NotFound />} />
           <Route path="*" element={<Navigate to="NotFound" />} />
         </Routes>
