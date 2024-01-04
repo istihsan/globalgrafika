@@ -7,8 +7,11 @@ import {
     chakra,
   } from '@chakra-ui/react'
   import BackgroundHero from '../../images/white-abstract-background-with-hexagon-pattern-style-seamless-concept_7505-1703.avif'
+import { useEffect, useState } from 'react'
 
   const ProductCardH  = () => {
+  const [products, setProducts] = useState(null)
+
     return (
 <Flex
         bgGradient={'radial(#6497b1 10%, #b3cde0, #FFFFFF)'}

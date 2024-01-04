@@ -13,21 +13,79 @@ import {
   TableCaption,
   IconButton,
   Center,
+  Button,
+  Spacer,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  ModalFooter,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  useDisclosure
 } from '@chakra-ui/react';
 import { EditIcon, DeleteIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 
 const DashboardTable = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    
+    const initialRef = React.useRef(null)
+    const finalRef = React.useRef(null)
   return (
     <Center>
         <Box p={4} borderWidth="2px" borderRadius="md" minW={'69%'} bgColor={'white'} boxShadow={'xl'} >
-        <Heading mb={4} fontSize="xl">
-            Riwayat Penjualan
+        <Flex>
+        <Heading mb={4} fontSize="xl">Riwayat Penjualan
         </Heading>
+        <Spacer/>
+        <Button colorScheme='green' onClick={onOpen}>Add New Order</Button>
+        </Flex>
+        
+        <Modal
+        initialFocusRef={initialRef}
+        finalFocusRef={finalRef}
+        isOpen={isOpen}
+        onClose={onClose}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Create your account</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <FormControl>
+              <FormLabel>Nama Produk</FormLabel>
+              <Input ref={initialRef} placeholder='Banner' />
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>Deskripsi Produk</FormLabel>
+              <Input placeholder='Banner sangat besar' />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Harga Produk</FormLabel>
+              <Input placeholder='250.000' />
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>Jumlah Stok</FormLabel>
+              <Input placeholder='10.000' />
+            </FormControl>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={onClose}>
+              Save
+            </Button>
+            <Button onClick={onClose}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
         <Text mb={4}>
             Lihat, Bandingkan, Ulas Kembali, Edit, atau Hapus
         </Text>
-
         <Table variant="striped">
             <Thead bgColor={'#E5E5E5'}>
             <Tr>
