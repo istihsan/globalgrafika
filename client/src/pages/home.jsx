@@ -1,15 +1,14 @@
 import React from "react";
-import Hero from "./components/hero";
-import Footer from "./components/footer"
-import ProductCardH from "./components/productcardh";
+import Hero from "./components/home/hero";
+import Footer from "./components/common/footer";
+import ProductCardHome from "./components/home/productCardHome";
 
 const Home = () => {
-
   return (
     <>
-    <Hero />
-    <ProductCardH />
-    <Footer />
+      <Hero />
+      <ProductCardHome />
+      <Footer />
     </>
   );
 };

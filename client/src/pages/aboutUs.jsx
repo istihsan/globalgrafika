@@ -1,10 +1,10 @@
-import React from 'react';
-import HeroProduct from './components/heroProduct';
-import Footer from './components/footer';
-import ProductsBrochure from './components/productsBrochure';
-import WhyUs from './components/whyUs';
-import ProductsPage from './ProductsPage';
-import { Divider, VStack } from '@chakra-ui/react';
+import React from "react";
+import HeroProduct from "./components/aboutUs/heroAboutUs";
+import Footer from "./components/common/footer";
+import ProductsBrochure from "./components/aboutUs/productsBrochure";
+import WhyUs from "./components/aboutUs/whyUs";
+import ProductsPage from "./ProductsPage";
+import { Divider, VStack } from "@chakra-ui/react";
 
 const AboutUs = () => {
   return (
@@ -13,14 +13,15 @@ const AboutUs = () => {
       align="center"
       justify="center"
       minH="100vh"
-      bgGradient={'radial(#6497b1 10%, #b3cde0, #FFFFFF)'}
+      bgGradient={"radial(#6497b1 10%, #b3cde0, #FFFFFF)"}
     >
-      <HeroProduct  />
-      <WhyUs/>
-      <Divider maxW={"80%"}/>
-      <ProductsBrochure/>
-      <ProductsPage/>
-      <Footer/>
+      <HeroProduct />
+      <Divider maxW={"80%"} />
+      <WhyUs />
+      <Divider maxW={"80%"} />
+      <ProductsBrochure />
+      <ProductsPage />
+      <Footer />
     </VStack>
   );
 };

@@ -1,13 +1,105 @@
-Payment Page :
->Info > Review > Payment
+Pages To Do:
 
-Product Showcase
-
+Cart Page :> Info > Review > Payment
+Order Tracking Page :> Nama sama Order ID
 Product Page
 
+Client Related To Do:
+ProtectedRoutes to Login
+
+
+Currency/Masked input
 
 Jangan Lupa Indent, SSH Keys
 Host github.com
 AddKeysToAgent yes
 UseKeychain yes
 IdentityFile ~/.ssh/id_ed25519_github
+
+
+
+
+
+
+
+
+
+
+
+
+NOTES
+
+Irshadi Bagasputro9:54 PM
+{}
+...newProduct
+{ name : "x" }
+{ name: x, price: 10, quantity: 99 }
+...newProduct
+
+{ name: x, price: 10, quantity: 99 }
+...newProduct
+Irshadi Bagasputro9:55 PM
+{ name: x, price: 10, quantity: 99, name: "b" }
+{ price: 10, quantity: 99, name: "b" }
+{ name: b, ...newProduct }
+{ name: x, price: 10, quantity: 99 }
+
+1. { name: x, price: 10, quantity: 99, name: "b" }
+2. { price: 10, quantity: 99, name: "b" }
+3. { name: b, ...newProduct }
+4. { name: x, price: 10, quantity: 99 }
+   Irshadi Bagasputro10:25 PM
+   React.useEffect(() => {
+   return () => {
+   setNewProduct(defaultObj)
+   }
+   }, [])
+   Irshadi Bagasputro10:26 PM
+   React.useEffect(() => {
+   if (isOpen) return
+   return () => {
+   setNewProduct(defaultObj)
+   }
+   }, [isOpen])
+   React.useEffect(() => {
+   if (isOpen) return
+   setNewProduct(defaultObj)
+
+}, [isOpen])
+
+Irshadi Bagasputro11:03 PM
+{
+"trailingComma": "none",
+"arrowParens": "avoid",
+"endOfLine": "auto"
+}
+Irshadi Bagasputro11:11 PM
+products[0]
+const [firstProduct ] = products
+You11:30 PM
+sama query search
+Irshadi Bagasputro11:30 PM
+const {quantity} = product
+const isPurchaseButtonDisabled = !quantity
+{isPurchaseButtonDisabled && <ItemEmptyMessage /> }
+You11:32 PM
+main material
+Irshadi Bagasputro11:33 PM
+const item = Products.findById()
+
+const isItemEmpty = item.quantity <= purchaseQuantity
+
+if (isItemEmpty) {
+// Handle barang abis
+return
+}
+
+// handle pembelian barang
+Irshadi Bagasputro11:35 PM
+res(500).({message: "Stock barang tidak cukup "})
+
+
+
+main material stock array product
+
+fund withdrawal gabutuh karena yang di urusiin midtrans
