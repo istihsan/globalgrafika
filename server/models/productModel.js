@@ -5,20 +5,47 @@ const productSchema = new Schema(
   {
     title: {
       type: String,
-      required: true,
+      required: true
     },
-    description: {
+    descriptionMain: {
       type: String,
-      required: false,
+      required: false
+    },
+    descriptionSecondary: {
+      type: String,
+      required: false
     },
     price: {
       type: Number,
-      required: true,
+      required: true
     },
     stock: {
       type: Number,
-      required: true,
+      required: true
     },
+    unit: {
+      type: String,
+      enum: ["pcs", "kg", "msquared", "test"],
+      required: true
+    },
+    categories: {
+      type: String,
+      enum: [
+        "digitalprintingsmall",
+        "digitalprintinglarge",
+        "officesupplies",
+        "merchandise"
+      ],
+      required: true
+    },
+    productImageUrl: {
+      type: String,
+      required: false
+    },
+    productVariant: {
+      type: [String],
+      required: false
+    }
   },
   { timestamps: true }
 );

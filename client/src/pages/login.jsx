@@ -1,4 +1,7 @@
 import * as React from "react";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {
   FormControl,
   FormLabel,
@@ -15,6 +18,24 @@ import {
 } from "@chakra-ui/react";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post("/api/login/", {
+        username,
+        password
+      });
+      localStorage.setItem("token", response.data.token);
+      navigate("/dashboard");
+    } catch (error) {
+      console.log(error.response.data);
+      console.error("Login failed", error);
+    }
+  };
+
   return (
     <Stack minH="100vh" direction={{ base: "column-reverse", md: "row" }}>
       <Flex flex={1}>
@@ -46,13 +67,23 @@ const Login = () => {
             p={{ base: 5, sm: 10 }}
           >
             <VStack spacing={4} w="100%">
-              <FormControl id="email">
-                <FormLabel>Email</FormLabel>
-                <Input rounded="md" type="email" />
+              <FormControl id="username">
+                <FormLabel>Username</FormLabel>
+                <Input
+                  rounded="md"
+                  type="username"
+                  value={username}
+                  onChange={e => setUsername(e.target.value)}
+                />
               </FormControl>
               <FormControl id="password">
                 <FormLabel>Password</FormLabel>
-                <Input rounded="md" type="password" />
+                <Input
+                  rounded="md"
+                  type="password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                />
               </FormControl>
             </VStack>
             <VStack w="100%">
@@ -62,6 +93,7 @@ const Login = () => {
                 </Checkbox>
               </Stack>
               <Button
+                onClick={handleLogin}
                 bg="#009DFF"
                 color="white"
                 _hover={{
@@ -84,5 +116,4 @@ const Login = () => {
     </Stack>
   );
 };
-
 export default Login;

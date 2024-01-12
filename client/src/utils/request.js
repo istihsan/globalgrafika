@@ -10,12 +10,49 @@ export const get = async url => {
 export const post = async (url, body) => {
   try {
     await fetch(url, {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
-        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify(body) // body data type must match "Content-Type" header
+      body: JSON.stringify(body)
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const del = async url => {
+  try {
+    await fetch(url, {
+      method: "DELETE"
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const patch = async (url, body) => {
+  try {
+    await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const put = async (url, body) => {
+  try {
+    await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
     });
   } catch (error) {
     throw error;

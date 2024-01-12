@@ -1,9 +1,8 @@
 import React from "react";
 import HeroProduct from "./components/aboutUs/heroAboutUs";
 import Footer from "./components/common/footer";
-import ProductsBrochure from "./components/aboutUs/productsBrochure";
+import ProductsBrochure from "./components/aboutUs/sellingPoint";
 import WhyUs from "./components/aboutUs/whyUs";
-import ProductsPage from "./ProductsPage";
 import { Divider, VStack } from "@chakra-ui/react";
 
 const AboutUs = () => {
@@ -17,10 +16,9 @@ const AboutUs = () => {
     >
       <HeroProduct />
       <Divider maxW={"80%"} />
-      <WhyUs />
-      <Divider maxW={"80%"} />
       <ProductsBrochure />
-      <ProductsPage />
+      <Divider maxW={"80%"} />
+      <WhyUs />
       <Footer />
     </VStack>
   );

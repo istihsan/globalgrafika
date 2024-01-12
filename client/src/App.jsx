@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -12,6 +12,14 @@ import AboutUs from "./pages/aboutUs";
 import ContactUs from "./pages/contactUs";
 import NotFound from "./pages/notFound";
 import Login from "./pages/login";
+import Products from "./pages/product";
+import ProductPageCategories from "./pages/components/product/productPageCategories/productPageCategories";
+import TrackOrder from "./pages/trackOrder";
+import ProductDetail from "./pages/components/product/productDetailPage/productDetail";
+import Checkout from "./pages/components/cart/checkout";
+import PrivateRoute from "./privateRoute";
+import { get } from "./utils/request";
+import DashboardDetailProduct from "./pages/components/dashboard/dashboardDetailProduct";
 
 function App() {
   return (
@@ -19,10 +27,34 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/dashboard/detailproduct/:id"
+            element={<DashboardDetailProduct />}
+          />
           <Route exact path="/aboutus" element={<AboutUs />} />
           <Route exact path="/contactus" element={<ContactUs />} />
           <Route exact path="/login" element={<Login />} />
+          <Route exact path="/products" element={<Products />} />
+          <Route exact path="/checkout" element={<Checkout />} />
+          <Route
+            exact
+            path={`/products/:categories`}
+            element={<ProductPageCategories />}
+          />
+          <Route
+            exact
+            path={`/products/:categories/detail/:id`}
+            element={<ProductDetail />}
+          />
+          <Route exact path="/trackorder" element={<TrackOrder />} />
           <Route exact path="/notfound" element={<NotFound />} />
           <Route path="*" element={<Navigate to="NotFound" />} />
         </Routes>

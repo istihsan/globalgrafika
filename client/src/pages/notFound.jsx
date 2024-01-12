@@ -4,7 +4,11 @@ import NavBar from "./components/common/navbar";
 
 export default function NotFound() {
   return (
-    <Flex direction="column" minHeight="100vh">
+    <Flex
+      direction="column"
+      minHeight="100vh"
+      bgGradient={"radial(#6497b1 10%, #b3cde0, #FFFFFF)"}
+    >
       <NavBar />
       <Box flex="1" textAlign="center" py={10} px={6}>
         <Heading

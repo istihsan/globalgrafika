@@ -3,6 +3,7 @@ const express = require("express");
 const db = require("./db/index");
 const productRoutes = require("./routes/products");
 const orderRoutes = require("./routes/order");
+const authRoutes = require("./routes/auth");
 const app = express();
 const cors = require("cors");
 
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
 
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/login", authRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);

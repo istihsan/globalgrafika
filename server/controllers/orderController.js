@@ -29,10 +29,14 @@ const getOneOrder = async (req, res) => {
 const createOrder = async (req, res) => {
   try {
     const orders = await Order.create({
-      title: req.body.title,
-      description: req.body.description,
-      price: req.body.price,
-      stock: req.body.stock,
+      customerName: req.body.customerName,
+      customerAddress: req.body.customerAddress,
+      customerPhoneNum: req.body.customerPhoneNum,
+      externalPaymentid: req.body.externalPaymentid,
+      orderStatus: req.body.orderStatus,
+      orderItem: req.body.orderItem,
+      cancellationReason: req.body.cancellationReason,
+      deliveryOption: req.body.deliveryOption
     });
     res.status(200).json(orders);
   } catch (error) {
@@ -79,5 +83,5 @@ module.exports = {
   getOneOrder,
   createOrder,
   deleteOrder,
-  updateOrder,
+  updateOrder
 };

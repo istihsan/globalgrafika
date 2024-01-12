@@ -15,9 +15,9 @@ import "@fontsource/syne-mono";
 import { Icon } from "@chakra-ui/react";
 import { FaShoppingCart, FaUserLock } from "react-icons/fa";
 
-const NavBarHero = () => {
+const NavBar = () => {
   return (
-    <Flex minWidth="max-content" alignItems="center" gap="2">
+    <Flex minWidth="max-content" alignItems="center" gap="2" mx="5%">
       <Box p="2" mt="1%">
         <Link href="/">
           <Heading
@@ -68,4 +68,4 @@ const NavBarHero = () => {
   );
 };
 
-export default NavBarHero;
+export default NavBar;

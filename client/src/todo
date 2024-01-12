@@ -1,21 +1,34 @@
 Pages To Do:
-
 Cart Page :> Info > Review > Payment
-Order Tracking Page :> Nama sama Order ID
-Product Page
+Dashboard Table : Products, Orders,
 
 Client Related To Do:
-ProtectedRoutes to Login
+// ProtectedRoutes to Login
+// utils function request (lengkapin post patch get)
+// Currency/Masked input (ERROR kalo pake hooks harus function biasa)
+// getAllProduct terhubung api (halaman product)
+// hubungin array buat product variants + buat di halaman modal Modal Dashboard Digedein buat fit semua yang harus ada di schema
+patch dashboardTableProduct
+local storage buat cart
 
 
-Currency/Masked input
+Server Related To Do:
+// Order endpoint and recheck schema
+// Enum quantity unit dan terhubung (pcs/m2)
+// Enum api pilihan courier
+
+Products Schema + variant type [string]
+
+
+
+
+
 
 Jangan Lupa Indent, SSH Keys
 Host github.com
 AddKeysToAgent yes
 UseKeychain yes
 IdentityFile ~/.ssh/id_ed25519_github
-
 
 
 

@@ -1,44 +1,51 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// Sama kaya di localstorage,,, notes dan customtemplateimageurl di checkout
+// interface Product {
+//   title: string;
+//   price: number;
+//   quantity: number;
+//   selectedVariant: string;
+//   notes: string;
+//   customTemplateImageUrl: string;
+// }
+
 const orderSchema = new Schema(
   {
-    customerid: {
-      type: Number,
-      required: true,
-    },
-    templateid: {
-      type: Number,
-      required: false,
-    },
-    paymentid: {
-      type: Number,
-      required: false,
-    },
-    changeDescription: {
+    customerName: {
       type: String,
-      required: false,
+      required: true
+    },
+    customerAddress: {
+      type: String,
+      required: true
+    },
+    customerPhoneNum: {
+      type: Number,
+      required: true
+    },
+    externalPaymentid: {
+      type: Number,
+      required: false
     },
     orderStatus: {
       type: String,
-      required: true,
+      enum: ["Gagal", "Dalam Proses", "Telah Dikirim", "Selesai"],
+      required: true
     },
-    amount: {
-      type: Number,
-      required: true,
-    },
-    paymenStatus: {
-      type: Boolean,
-      required: true,
-    },
-    cancellationStatus: {
-      type: Boolean,
-      required: true,
+    orderItem: {
+      type: JSON
     },
     cancellationReason: {
       type: String,
-      required: false,
+      required: false
     },
+    deliveryOption: {
+      type: String,
+      enum: ["JNE", "Pos Indonesia", "SiCepat"],
+      required: true
+    }
   },
   { timestamps: true }
 );
