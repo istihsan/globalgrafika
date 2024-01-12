@@ -1,12 +1,13 @@
+require("dotenv").config();
 const express = require("express");
-const bodyParser = require("body-parser");
 const db = require("./db/index");
-const Product = require("./models/product");
+const productRoutes = require("./routes/products");
+const orderRoutes = require("./routes/order");
+const authRoutes = require("./routes/auth");
 const app = express();
-const port = 3000;
 const cors = require("cors");
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
@@ -15,16 +16,15 @@ db.once("open", () => {
 
 app.use(cors());
 
-app.get("/products", async (req, res) => {
-  try {
-    const products = await Product.find();
-    res.json(products);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
+app.use((req, res, next) => {
+  console.log(req.path, req.method);
+  next();
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.use("/api/products", productRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/login", authRoutes);
+
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}`);
 });

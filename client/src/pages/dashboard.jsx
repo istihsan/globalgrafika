@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
-import DashboardNav from './components/dashboardNav';
+import React from "react";
+import DashboardNav from "./components/dashboard/dashboardNav.jsx";
+import DashboardMain from "./components/dashboard/dashboardMain.jsx";
+import DashboardTable from "./components/dashboard/dashboardTableProduct.jsx";
 
 const Dashboard = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
   return (
     <>
-      <DashboardNav />
+      <div style={{ backgroundColor: "#f5f5f5" }}>
+        <DashboardNav />
+        <DashboardMain />
+        <DashboardTable />
+      </div>
     </>
   );
 };

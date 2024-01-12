@@ -1,20 +1,14 @@
-import React, { useState } from "react";
-import Hero from "./components/hero";
-import Footer from "./components/footer"
-import ProductCard from "./components/productcard"
-import FrequentlyAskedQuestion from "./components/frequentlyaskedquestions";
-import ProductCardH from "./components/productcardh";
+import React from "react";
+import Hero from "./components/home/hero";
+import Footer from "./components/common/footer";
+import ProductCardHome from "./components/home/productCardHome";
 
 const Home = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
   return (
     <>
-    <Hero />
-    <ProductCard /> 
-    <ProductCardH />
-    <FrequentlyAskedQuestion />
-    <Footer />
+      <Hero />
+      <ProductCardHome />
+      <Footer />
     </>
   );
 };
