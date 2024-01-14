@@ -54,7 +54,7 @@ const NavBar = () => {
       <Center h={"20px"} mt={"1.1%"} me={"1%"}>
         <Divider orientation="vertical" borderColor={"gray"} />
       </Center>
-      <Link href="/cart" pe="4" mt="6" color={"blackAlpha.700"}>
+      <Link href="/checkout" pe="4" mt="6" color={"blackAlpha.700"}>
         <Icon as={FaShoppingCart} />
       </Link>
       <Link href="/dashboard" pe="4" mt="6" color={"blackAlpha.700"}>

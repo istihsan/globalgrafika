@@ -16,6 +16,10 @@ import {
   FormControl,
   FormLabel,
   Icon,
+  HStack,
+  Input,
+  useNumberInput,
+  useToast as useChakraToast,
   Divider
 } from "@chakra-ui/react";
 import { MdLocalShipping } from "react-icons/md";
@@ -23,19 +27,62 @@ import { useParams } from "react-router";
 import ProductVariantSelect from "./productVariantSelect";
 import QuantityIncrement from "./quantityIncrement";
 import NavBar from "../navbar";
-import { setLocalStorageItem } from "../../../../utils/localStorage";
+import {
+  setLocalStorageItem,
+  getLocalStorageItem
+} from "../../../../utils/localStorage";
 import { useState, useEffect } from "react";
 import { get } from "../../../../utils/request";
 
 export default function ProductDescription() {
-  const handleOnAddItemToCart = () => {
-    setLocalStorageItem();
-  };
+  useEffect(() => {
+    const storedCartItems = getLocalStorageItem("cart") || [];
+    setCartItems(storedCartItems);
+  }, []);
+
   const [product, setProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const [cartItems, setCartItems] = useState([]);
+  const [selectedVariant, setSelectedVariant] = useState("Small");
   const params = useParams();
+  const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
+    useNumberInput({
+      step: 1,
+      defaultValue: 1,
+      min: 1,
+      max: 99
+    });
+  const inc = getIncrementButtonProps();
+  const dec = getDecrementButtonProps();
+  const input = getInputProps();
+
+  const toast = useChakraToast();
+
+  const handleOnAddItemToCart = value => {
+    const newItem = {
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      productImageUrl: product.productImageUrl,
+      productVariant: selectedVariant,
+      quantity: input.value,
+      unit: product.unit
+    };
+    toast({
+      title: `Berhasil Ditambahkan ke Keranjang`,
+      status: "success",
+      duration: 2000
+    });
+
+    setCartItems(prevCart => [...prevCart, newItem]);
+  };
+  const handleVariantChange = value => {
+    setSelectedVariant(value);
+  };
+  useEffect(() => {
+    setLocalStorageItem("cart", cartItems);
+  }, [cartItems]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -62,6 +109,7 @@ export default function ProductDescription() {
 
     return formatter.format(amount);
   };
+
   return (
     <Box bgGradient={"linear(to-b,#6497b1, #b3cde0, #FFFFFF)"}>
       <NavBar />
@@ -129,7 +177,7 @@ export default function ProductDescription() {
                 >
                   Size / Ukuran
                 </Text>
-                <ProductVariantSelect />
+                <ProductVariantSelect onVariantChange={handleVariantChange} />
               </Box>
             </Stack>
             <Divider borderColor={"whiteAlpha.900"} />
@@ -229,7 +277,25 @@ export default function ProductDescription() {
                 </Stack>
               </Flex>
             </FormControl>
-            <QuantityIncrement />
+            <HStack>
+              <Button
+                {...dec}
+                bg="whiteAlpha.800"
+                borderColor="white"
+                boxShadow="md"
+              >
+                -
+              </Button>
+              <Input {...input} isReadOnly={true} />
+              <Button
+                {...inc}
+                bg="whiteAlpha.800"
+                borderColor="white"
+                boxShadow="md"
+              >
+                +
+              </Button>
+            </HStack>
             <Button
               onClick={handleOnAddItemToCart}
               rounded={"none"}

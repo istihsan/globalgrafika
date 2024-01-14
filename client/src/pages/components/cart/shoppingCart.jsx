@@ -1,67 +1,118 @@
+import React from "react";
 import {
   Box,
   Flex,
   Heading,
+  VStack,
   HStack,
-  Link,
+  Card,
+  Image,
+  CardBody,
+  Text,
+  CardFooter,
+  Button,
   Stack,
-  useColorModeValue as mode
+  Input,
+  Spacer,
+  useNumberInput
 } from "@chakra-ui/react";
-import { CartItem } from "./cartItem";
-import { CartOrderSummary } from "./cartOrderSummary";
-import { cartData } from "./_data";
+import { getLocalStorageItem } from "../../../utils/localStorage";
+import { useEffect, useState } from "react";
+import { FaTrash } from "react-icons/fa";
 import FormCart from "./formCart";
 
-export const ShoppingCart = () => (
-  <Box
-    mx="auto"
-    py={{
-      base: "6",
-      md: "8",
-      lg: "12"
-    }}
-  >
-    <Stack
-      direction={{
-        base: "column",
-        lg: "row"
-      }}
-      align={{
-        lg: "flex-start"
-      }}
-      spacing={{
-        base: "8",
-        md: "16"
-      }}
-    >
-      <Stack
-        spacing={{
-          base: "8",
-          md: "10"
-        }}
-        flex="2"
+export default function ShoppingCart() {
+  const [cartData, setCartData] = useState(getLocalStorageItem("cart") || []);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartData));
+  }, [cartData]);
+
+  const handleDelete = itemToDelete => {
+    const updatedCart = cartData.filter(item => item !== itemToDelete);
+    setCartData(updatedCart);
+  };
+
+  return (
+    <Flex>
+      <VStack m={5}>
+        {cartData.map((item, index) => (
+          <Box key={index} minW="100vh" m={"2.5%"}>
+            <Card
+              direction={{ base: "column", sm: "row" }}
+              overflow="hidden"
+              variant="outline"
+            >
+              <Image
+                objectFit="cover"
+                maxW={{ base: "100%", sm: "200px" }}
+                src={item.productImageUrl}
+                alt={item.title}
+              />
+
+              <Stack>
+                <CardBody>
+                  <Heading size="md">{item.title}</Heading>
+                  <Text py="2">{item.productVariant}</Text>
+                  <Text>{`Quantity: ${item.quantity}${item.unit}`}</Text>
+                </CardBody>
+
+                <CardFooter>
+                  <HStack>
+                    <QuantityInput item={item} />
+                    <Spacer />
+                    <Button
+                      ms={5}
+                      variant="solid"
+                      colorScheme="red"
+                      onClick={() => handleDelete(item)}
+                    >
+                      <FaTrash />
+                    </Button>
+                    <Spacer />
+                    <Button variant="solid" colorScheme="blue">
+                      {`Price: ${item.price}`}
+                    </Button>
+                  </HStack>
+                </CardFooter>
+              </Stack>
+            </Card>
+          </Box>
+        ))}
+      </VStack>
+      <FormCart />
+    </Flex>
+  );
+}
+
+function QuantityInput({ item }) {
+  const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
+    useNumberInput({
+      step: 1,
+      defaultValue: item.quantity,
+      min: 1,
+      max: 99
+    });
+
+  const inc = getIncrementButtonProps();
+  const dec = getDecrementButtonProps();
+  const input = getInputProps();
+
+  return (
+    <HStack>
+      <Button {...dec} bg="whiteAlpha.800" borderColor="white" boxShadow="md">
+        -
+      </Button>
+      <Input {...input} isReadOnly={true} />
+      <Button
+        {...inc}
+        mr={5}
+        bg="whiteAlpha.800"
+        borderColor="white"
+        boxShadow="md"
       >
-        <Heading fontSize="2xl" fontWeight="extrabold">
-          Shopping Cart (3 items)
-        </Heading>
-
-        <Stack spacing="6">
-          {cartData.map(item => (
-            <CartItem key={item.id} {...item} />
-          ))}
-        </Stack>
-        <CartOrderSummary />
-      </Stack>
-
-      <Flex direction="column" align="center" flex="1">
-        <FormCart />
-        <HStack mt="6" fontWeight="semibold">
-          <p>or</p>
-          <Link color={mode("blue.500", "blue.200")}>Continue shopping</Link>
-        </HStack>
-      </Flex>
-    </Stack>
-  </Box>
-);
-
-export default ShoppingCart;
+        +
+      </Button>
+    </HStack>
+  );
+}

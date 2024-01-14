@@ -11,7 +11,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { get } from "../../../../utils/request";
 
-export default function ProductVariantSelect() {
+export default function ProductVariantSelect({ onVariantChange }) {
   function RadioCard(props) {
     const { getInputProps, getRadioProps } = useRadio(props);
     const input = getInputProps();
@@ -67,7 +67,8 @@ export default function ProductVariantSelect() {
     fetchProduct();
   }, []);
 
-  const handleChange = value => {
+  const handleVariantChange = value => {
+    onVariantChange(value);
     toast({
       title: `The value got changed to ${value}!`,
       status: "success",
@@ -78,13 +79,10 @@ export default function ProductVariantSelect() {
   const { value, getRootProps, getRadioProps } = useRadioGroup({
     name: "variant",
     defaultValue: "Small",
-    onChange: handleChange
+    onChange: handleVariantChange
   });
 
   const group = getRootProps();
-  console.log(productVariants);
-  console.log(">>>>>>>>>>>>>>>>>>>>");
-
   return (
     <HStack {...group}>
       {productVariants.map((value, index) => {

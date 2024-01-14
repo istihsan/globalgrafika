@@ -10,8 +10,8 @@ import {
 } from "@chakra-ui/react";
 import { FiGift } from "react-icons/fi";
 
-export const CartProductMeta = props => {
-  const { isGiftWrapping = true, image, name, description } = props;
+export const CartProduct = props => {
+  const { isGiftWrapping = true, productImageUrl, name, description } = props;
   return (
     <Stack direction="row" spacing="5" width="full">
       <Image
@@ -19,7 +19,7 @@ export const CartProductMeta = props => {
         width="120px"
         height="120px"
         fit="cover"
-        src={image}
+        src={productImageUrl}
         alt={name}
         draggable="false"
         loading="lazy"

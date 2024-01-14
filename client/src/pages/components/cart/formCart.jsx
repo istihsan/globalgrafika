@@ -14,7 +14,7 @@ import {
 
 const FormCart = () => {
   return (
-    <Box p={10}>
+    <Box p={10} ml={"10%"}>
       <Box mt={[10, 0]}>
         <SimpleGrid
           display={{
@@ -28,27 +28,12 @@ const FormCart = () => {
             md: 6
           }}
         >
+          <Box px={[4, 0]}></Box>
           <GridItem
             colSpan={{
               md: 1
             }}
-          >
-            <Box px={[4, 0]}>
-              <Heading fontSize="lg" fontWeight="medium" lineHeight="6">
-                Personal Information
-              </Heading>
-              <Text
-                mt={1}
-                fontSize="sm"
-                color="gray.600"
-                _dark={{
-                  color: "gray.400"
-                }}
-              >
-                Use a permanent address where you can receive mail.
-              </Text>
-            </Box>
-          </GridItem>
+          ></GridItem>
           <GridItem
             mt={[5, null, 0]}
             colSpan={{
@@ -57,7 +42,8 @@ const FormCart = () => {
           >
             <chakra.form
               method="POST"
-              shadow="base"
+              shadow="outline"
+              outlineColor={"#6497b1"}
               rounded={[null, "md"]}
               overflow={{
                 sm: "hidden"
@@ -73,6 +59,19 @@ const FormCart = () => {
                 }}
                 spacing={6}
               >
+                <Heading fontSize="lg" fontWeight="medium" lineHeight="6">
+                  Personal Information
+                </Heading>
+                <Text
+                  mt={1}
+                  fontSize="sm"
+                  color="gray.600"
+                  _dark={{
+                    color: "gray.400"
+                  }}
+                >
+                  Use a permanent address where you can receive mail.
+                </Text>
                 <SimpleGrid columns={6} spacing={6}>
                   <FormControl as={GridItem} colSpan={[6, 3]}>
                     <FormLabel
