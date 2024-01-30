@@ -9,16 +9,37 @@ Client Related To Do:
 // getAllProduct terhubung api (halaman product)
 // hubungin array buat product variants + buat di halaman modal Modal Dashboard Digedein buat fit semua yang harus ada di schema
 // patch dashboardTableProduct
-//local storage buat cart
-local storage always emptied when entering page detailproduk buat cart
+// local storage buat cart
+// local storage always emptied when entering page detailproduk buat cart (useEffect Product Desc)
+// checkout recap (total, ongkir, dkk di shoppingcart.jsx)
+invoice page
+dashboardOrder page
+prettier loading (kalo gabut aja)
+
 
 Server Related To Do:
 // Order endpoint and recheck schema
 // Enum quantity unit dan terhubung (pcs/m2)
 // Enum api pilihan courier
+kalo large harganya beda
+
+
+Penulisan Related To Do: 
+Deskripsi Fitur : 
+(User/Pembeli)
+Melakukan Pembelian
+Mengecek/Melacak Pesanan
+(Admin)
+Login
+Pengecekan Order
+Cancel Order
+Input Produk
+Pengecekan Produk
+Edit Produk
+(Owner)
+Laporan Penjualan
 
 Products Schema + variant type [string]
-
 
 
 

@@ -1,14 +1,9 @@
 import DashboardNav from "./dashboardNav";
 import { React, useState, useEffect, useRef } from "react";
 import {
-  Box,
-  Text,
-  Stack,
-  useColorModeValue,
   Button,
   Input,
   Flex,
-  Icon,
   Center,
   VisuallyHidden,
   Divider,
@@ -26,7 +21,7 @@ import {
 import { useParams } from "react-router";
 import { patch, get } from "../../../utils/request";
 import { useToast } from "../../../hooks/useToast";
-import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import { DeleteIcon } from "@chakra-ui/icons";
 import DashboardMain from "./dashboardMain";
 
 const DashboardDetailProduct = () => {
@@ -154,7 +149,7 @@ const DashboardDetailProduct = () => {
       <DashboardNav />
       <DashboardMain />
       <Divider mb={5} maxW={"75%"} mx={"auto"} borderColor={"blackAlpha.400"} />
-      <Card maxW={"80%"} mx={"auto"}>
+      <Card maxW={"80%"} mx={"auto"} mb={5}>
         <Center>
           <CardHeader
             lineHeight={1.1}

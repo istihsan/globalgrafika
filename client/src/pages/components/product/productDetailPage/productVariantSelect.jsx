@@ -70,7 +70,7 @@ export default function ProductVariantSelect({ onVariantChange }) {
   const handleVariantChange = value => {
     onVariantChange(value);
     toast({
-      title: `The value got changed to ${value}!`,
+      title: `Kamu Memilih Variant ${value}!`,
       status: "success",
       duration: 2000
     });

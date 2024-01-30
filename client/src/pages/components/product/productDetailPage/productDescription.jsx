@@ -25,7 +25,6 @@ import {
 import { MdLocalShipping } from "react-icons/md";
 import { useParams } from "react-router";
 import ProductVariantSelect from "./productVariantSelect";
-import QuantityIncrement from "./quantityIncrement";
 import NavBar from "../navbar";
 import {
   setLocalStorageItem,
@@ -33,19 +32,16 @@ import {
 } from "../../../../utils/localStorage";
 import { useState, useEffect } from "react";
 import { get } from "../../../../utils/request";
+import currencyFormatter from "../../../../hooks/useCurrencyFormatter";
 
 export default function ProductDescription() {
-  useEffect(() => {
-    const storedCartItems = getLocalStorageItem("cart") || [];
-    setCartItems(storedCartItems);
-  }, []);
-
   const [product, setProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [selectedVariant, setSelectedVariant] = useState("Small");
   const params = useParams();
+
   const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
     useNumberInput({
       step: 1,
@@ -58,31 +54,6 @@ export default function ProductDescription() {
   const input = getInputProps();
 
   const toast = useChakraToast();
-
-  const handleOnAddItemToCart = value => {
-    const newItem = {
-      id: product.id,
-      title: product.title,
-      price: product.price,
-      productImageUrl: product.productImageUrl,
-      productVariant: selectedVariant,
-      quantity: input.value,
-      unit: product.unit
-    };
-    toast({
-      title: `Berhasil Ditambahkan ke Keranjang`,
-      status: "success",
-      duration: 2000
-    });
-
-    setCartItems(prevCart => [...prevCart, newItem]);
-  };
-  const handleVariantChange = value => {
-    setSelectedVariant(value);
-  };
-  useEffect(() => {
-    setLocalStorageItem("cart", cartItems);
-  }, [cartItems]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -101,13 +72,32 @@ export default function ProductDescription() {
     fetchProduct();
   }, []);
 
-  const formatCurrency = amount => {
-    const formatter = new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR"
+  useEffect(() => {
+    const storedCartItems = getLocalStorageItem("cart") || [];
+    setCartItems(storedCartItems);
+  }, []);
+
+  const handleOnAddItemToCart = value => {
+    const newItem = {
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      productImageUrl: product.productImageUrl,
+      productVariant: selectedVariant,
+      quantity: input.value,
+      unit: product.unit
+    };
+    toast({
+      title: `Berhasil Ditambahkan ke Keranjang`,
+      status: "success",
+      duration: 2000
     });
 
-    return formatter.format(amount);
+    setCartItems(prevCart => [...prevCart, newItem]);
+    setLocalStorageItem("cart", [...cartItems, newItem]);
+  };
+  const handleVariantChange = value => {
+    setSelectedVariant(value);
   };
 
   return (
@@ -144,7 +134,7 @@ export default function ProductDescription() {
                 fontWeight={500}
                 fontSize={"2xl"}
               >
-                {formatCurrency(product.price)}/{product.unit}
+                {currencyFormatter(product.price)}/{product.unit}
               </Text>
             </Box>
 
