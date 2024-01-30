@@ -1,4 +1,4 @@
-const useCurrencyFormatter = amount => {
+const currencyFormatter = amount => {
   const formatter = new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR"
@@ -7,4 +7,4 @@ const useCurrencyFormatter = amount => {
   return formatter.format(amount);
 };
 
-export default useCurrencyFormatter;
+export default currencyFormatter;

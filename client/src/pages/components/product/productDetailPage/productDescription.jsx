@@ -16,26 +16,44 @@ import {
   FormControl,
   FormLabel,
   Icon,
+  HStack,
+  Input,
+  useNumberInput,
+  useToast as useChakraToast,
   Divider
 } from "@chakra-ui/react";
 import { MdLocalShipping } from "react-icons/md";
 import { useParams } from "react-router";
 import ProductVariantSelect from "./productVariantSelect";
-import QuantityIncrement from "./quantityIncrement";
 import NavBar from "../navbar";
-import { setLocalStorageItem } from "../../../../utils/localStorage";
+import {
+  setLocalStorageItem,
+  getLocalStorageItem
+} from "../../../../utils/localStorage";
 import { useState, useEffect } from "react";
 import { get } from "../../../../utils/request";
+import currencyFormatter from "../../../../hooks/useCurrencyFormatter";
 
 export default function ProductDescription() {
-  const handleOnAddItemToCart = () => {
-    setLocalStorageItem();
-  };
   const [product, setProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const [cartItems, setCartItems] = useState([]);
+  const [selectedVariant, setSelectedVariant] = useState("Small");
   const params = useParams();
+
+  const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
+    useNumberInput({
+      step: 1,
+      defaultValue: 1,
+      min: 1,
+      max: 99
+    });
+  const inc = getIncrementButtonProps();
+  const dec = getDecrementButtonProps();
+  const input = getInputProps();
+
+  const toast = useChakraToast();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -54,14 +72,34 @@ export default function ProductDescription() {
     fetchProduct();
   }, []);
 
-  const formatCurrency = amount => {
-    const formatter = new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR"
+  useEffect(() => {
+    const storedCartItems = getLocalStorageItem("cart") || [];
+    setCartItems(storedCartItems);
+  }, []);
+
+  const handleOnAddItemToCart = value => {
+    const newItem = {
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      productImageUrl: product.productImageUrl,
+      productVariant: selectedVariant,
+      quantity: input.value,
+      unit: product.unit
+    };
+    toast({
+      title: `Berhasil Ditambahkan ke Keranjang`,
+      status: "success",
+      duration: 2000
     });
 
-    return formatter.format(amount);
+    setCartItems(prevCart => [...prevCart, newItem]);
+    setLocalStorageItem("cart", [...cartItems, newItem]);
   };
+  const handleVariantChange = value => {
+    setSelectedVariant(value);
+  };
+
   return (
     <Box bgGradient={"linear(to-b,#6497b1, #b3cde0, #FFFFFF)"}>
       <NavBar />
@@ -96,7 +134,7 @@ export default function ProductDescription() {
                 fontWeight={500}
                 fontSize={"2xl"}
               >
-                {formatCurrency(product.price)}/{product.unit}
+                {currencyFormatter(product.price)}/{product.unit}
               </Text>
             </Box>
 
@@ -129,7 +167,7 @@ export default function ProductDescription() {
                 >
                   Size / Ukuran
                 </Text>
-                <ProductVariantSelect />
+                <ProductVariantSelect onVariantChange={handleVariantChange} />
               </Box>
             </Stack>
             <Divider borderColor={"whiteAlpha.900"} />
@@ -229,7 +267,25 @@ export default function ProductDescription() {
                 </Stack>
               </Flex>
             </FormControl>
-            <QuantityIncrement />
+            <HStack>
+              <Button
+                {...dec}
+                bg="whiteAlpha.800"
+                borderColor="white"
+                boxShadow="md"
+              >
+                -
+              </Button>
+              <Input {...input} isReadOnly={true} />
+              <Button
+                {...inc}
+                bg="whiteAlpha.800"
+                borderColor="white"
+                boxShadow="md"
+              >
+                +
+              </Button>
+            </HStack>
             <Button
               onClick={handleOnAddItemToCart}
               rounded={"none"}

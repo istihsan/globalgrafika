@@ -7,7 +7,7 @@
     "@altipla/fa6-icon": "^0.2.3",
     "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.2",
-    "@ctrl/tinycolor": "^4.0.2",
+    "@ctrl/tinycolor": "^4.0.3",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@fontsource-variable/playfair": "^5.0.3",

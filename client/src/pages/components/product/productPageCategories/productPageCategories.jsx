@@ -70,7 +70,13 @@ const ProductPageCategories = () => {
               textAlign="left"
             >
               <chakra.h1 fontSize="4xl" lineHeight={1.2} fontWeight="bold">
-                Explore Our Small Digital Printing Products
+                Explore Our{" "}
+                <chakra.span
+                  color="teal"
+                  bg="linear-gradient(transparent 50%, #83e9e7 50%)"
+                >
+                  Small Digital Printing Products
+                </chakra.span>
               </chakra.h1>
               <chakra.h1
                 color="gray.400"

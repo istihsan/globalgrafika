@@ -36,15 +36,6 @@ function DashboardSidebar() {
       >
         <DrawerOverlay />
         <DrawerContent bgImage={BGImage} minW={"29%"}>
-          <Center>
-            <Button bgColor={"white"} minW={"75%"} maxW={"75%"} mt={"10%"}>
-              <Center>
-                <AddIcon ms="-50%" />
-                <Divider orientation="vertical" />
-                <Text ms="50%">Add Invoice</Text>
-              </Center>
-            </Button>
-          </Center>
           <DrawerBody
             mt={2}
             overflow="scroll"

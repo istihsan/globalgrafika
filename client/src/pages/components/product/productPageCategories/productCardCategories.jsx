@@ -1,4 +1,12 @@
-import { Flex, Box, chakra, Link, Divider, Center } from "@chakra-ui/react";
+import {
+  Flex,
+  Box,
+  chakra,
+  Link,
+  Divider,
+  Center,
+  Grid
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { get } from "../../../../utils/request";
 import { useCurrencyFormatter } from "../../../../hooks/useCurrencyFormatter";
@@ -34,7 +42,14 @@ const ProductCardDigitalPrintingSmall = () => {
   };
 
   return (
-    <Flex p={50} w="full" alignItems="center" justifyContent="center">
+    <Grid
+      p={50}
+      w="full"
+      alignItems="center"
+      justifyContent="center"
+      templateColumns="repeat(4, 1fr)"
+      rowGap={5}
+    >
       {isLoading ? (
         // Show loading state
         <div>Loading...</div>
@@ -142,7 +157,7 @@ const ProductCardDigitalPrintingSmall = () => {
           </Flex>
         ))
       )}
-    </Flex>
+    </Grid>
   );
 };
 export default ProductCardDigitalPrintingSmall;
