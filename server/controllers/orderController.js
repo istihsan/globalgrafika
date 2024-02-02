@@ -31,7 +31,9 @@ const createOrder = async (req, res) => {
     const orders = await Order.create({
       customerName: req.body.customerName,
       customerAddress: req.body.customerAddress,
+      customerEmailAddress: req.body.customerEmailAddress,
       customerPhoneNum: req.body.customerPhoneNum,
+      totalOrder: req.body.totalOrder,
       externalPaymentid: req.body.externalPaymentid,
       orderStatus: req.body.orderStatus,
       orderItem: req.body.orderItem,

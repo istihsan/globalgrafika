@@ -78,7 +78,6 @@ export default function ProductVariantSelect({ onVariantChange }) {
 
   const { value, getRootProps, getRadioProps } = useRadioGroup({
     name: "variant",
-    defaultValue: "Small",
     onChange: handleVariantChange
   });
 

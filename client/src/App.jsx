@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -18,8 +18,9 @@ import TrackOrder from "./pages/trackOrder";
 import ProductDetail from "./pages/components/product/productDetailPage/productDetail";
 import Checkout from "./pages/components/cart/checkout";
 import PrivateRoute from "./privateRoute";
-import { get } from "./utils/request";
 import DashboardDetailProduct from "./pages/components/dashboard/dashboardDetailProduct";
+import DashboardOrder from "./pages/dashboardOrder";
+import DashboardProduct from "./pages/dashboardProduct";
 
 function App() {
   return (
@@ -35,6 +36,8 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="/dashboard/product" element={<DashboardProduct />} />
+          <Route path="/dashboard/order" element={<DashboardOrder />} />
           <Route
             path="/dashboard/detailproduct/:id"
             element={<DashboardDetailProduct />}

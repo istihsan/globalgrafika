@@ -30,13 +30,7 @@ const DashboardNav = () => {
         </Heading>
         <Spacer />
         <Flex align="center" me={"3"}>
-          <Avatar
-            size="md"
-            name="Istihsan Bismo"
-            src="https://bit.ly/sage-adebayo"
-            mr="5"
-            mt="2"
-          />
+          <Avatar size="md" name="Istihsan Bismo" src="" mr="5" mt="2" />
           <Divider orientation="vertical" />
           <Text
             mr="2"

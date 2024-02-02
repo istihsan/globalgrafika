@@ -13,7 +13,7 @@ import {
 import React from "react";
 import "@fontsource/staatliches";
 
-export default function DashboardMain() {
+export default function DashboardStats() {
   return (
     <Flex justify={"center"} align={"center"} minW={"100%"} my={"1.5%"}>
       <VStack>

@@ -39,7 +39,7 @@ import {
 import { post, get } from "../../../utils/request";
 import { useToast } from "../../../hooks/useToast";
 
-const DashboardTable = () => {
+const DashboardTableProduct = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
@@ -395,4 +395,4 @@ const DashboardTable = () => {
   );
 };
 
-export default DashboardTable;
+export default DashboardTableProduct;
