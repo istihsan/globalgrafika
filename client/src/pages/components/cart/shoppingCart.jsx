@@ -16,24 +16,28 @@ import {
   Spacer,
   Center,
   Flex,
-  useNumberInput,
-  Divider
+  useNumberInput
 } from "@chakra-ui/react";
 import { getLocalStorageItem } from "../../../utils/localStorage";
 import { FaTrash } from "react-icons/fa";
-import FormCart from "./formPersonalInfoCart";
+import FormOrder from "./formOrder";
 import currencyFormatter from "../../../hooks/useCurrencyFormatter";
 import useCalculateTotalOrder from "../../../hooks/useCalculateTotalOrder";
 
-export default function ShoppingCart() {
+const ShoppingCart = () => {
   const [cartData, setCartData] = useState(getLocalStorageItem("cart") || []);
-  const additionalFees = 100000;
-  const shippingCost = 200000;
+  const additionalFees = 1000;
+  const shippingCost = 20000;
   const { totalOrder, totalItemsPrice } = useCalculateTotalOrder(
     cartData,
     additionalFees,
     shippingCost
   );
+  const [formData, setFormData] = useState({
+    personalInfo: {},
+    addressInfo: {},
+    deliveryOption: {}
+  });
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartData));
@@ -173,11 +177,17 @@ export default function ShoppingCart() {
             </VStack>
           </VStack>
         </Card>
-        <FormCart />
+        <FormOrder
+          cartData={cartData}
+          setCartData={setCartData}
+          formData={formData}
+          setFormData={updatedData => setFormData(updatedData)}
+          totalOrder={totalOrder}
+        />
       </SimpleGrid>
     </>
   );
-}
+};
 
 function QuantityInput({ item, onQuantityChange }) {
   const {
@@ -229,3 +239,5 @@ function QuantityInput({ item, onQuantityChange }) {
     </HStack>
   );
 }
+
+export default ShoppingCart;

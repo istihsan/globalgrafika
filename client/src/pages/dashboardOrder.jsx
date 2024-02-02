@@ -1,18 +1,18 @@
 import React from "react";
 import DashboardNav from "./components/dashboard/dashboardNav.jsx";
 import DashboardStats from "./components/dashboard/dashboardStats.jsx";
-import DashboardMainCard from "./components/dashboard/dashboardMainCard.jsx";
+import DashboardTableOrder from "./components/dashboard/dashboardTableOrder.jsx";
 
-const Dashboard = () => {
+const DashboardOrder = () => {
   return (
     <>
       <div style={{ backgroundColor: "#f5f5f5" }}>
         <DashboardNav />
         <DashboardStats />
-        <DashboardMainCard />
+        <DashboardTableOrder />
       </div>
     </>
   );
 };
 
-export default Dashboard;
+export default DashboardOrder;

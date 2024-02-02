@@ -85,13 +85,13 @@ const Card = ({ heading, description, icon, href, slideDesc }: CardProps) => {
   );
 };
 
-export default function WhyUs() {
+export default function DashboardMainCard() {
   const { onToggle } = useDisclosure();
   return (
     <Box p={4}>
-      <Container maxW={"5xl"} mt={12}>
+      <Container maxW={"5xl"} minH="50vh" mt={12}>
         <Flex flexWrap="wrap" gridGap={6} justify="center">
-          <SimpleGrid spacing={4} columns={4} templateColumns="repeat(1, 1fr)">
+          <SimpleGrid spacing={4} columns={3} templateColumns="repeat(3, 1fr)">
             <Card
               heading={"Dashboard Utama"}
               as={Link}

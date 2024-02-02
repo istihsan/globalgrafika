@@ -22,7 +22,7 @@ import { useParams } from "react-router";
 import { patch, get } from "../../../utils/request";
 import { useToast } from "../../../hooks/useToast";
 import { DeleteIcon } from "@chakra-ui/icons";
-import DashboardMain from "./dashboardMain";
+import DashboardMain from "./dashboardStats";
 
 const DashboardDetailProduct = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -191,7 +191,7 @@ const DashboardDetailProduct = () => {
             />
           </FormControl>
           <FormControl mt={4}>
-            <FormLabel>Deskripsi Produk</FormLabel>
+            <FormLabel>Deskripsi Tambahan</FormLabel>
             <Input
               placeholder={product.descriptionSecondary}
               onChange={e =>
