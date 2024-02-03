@@ -61,7 +61,6 @@ export default function ProductDescription() {
       try {
         const product = await get(`/api/products/${params.id}`);
         setProduct(product);
-        console.log(product);
       } catch (error) {
         setError(error);
       } finally {

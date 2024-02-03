@@ -12,10 +12,13 @@ Client Related To Do:
 // local storage always emptied when entering page detailproduk buat cart (useEffect Product Desc)
 // checkout recap (total, ongkir, dkk di shoppingcart.jsx)
 // Order POST (belom masuk cartnya)
-invoice page
+// invoice page
 dashboardOrder+dashboardTableProduct page (tinggal delete aja)
+dashboardDetailOrder (kayanya samain aja kaya invoice page + status order)
 prettier loading (kalo gabut aja)
 masih ada bug kalo langsung ke masukkin ke keranjang defaultValuenya small bahkan small aja gaada
+kalo add variant yang sama produk sama nambah satu lagi bukan cuma add quantity
+create new admin (tapi kayanya belom butuh) 
 
 
 Server Related To Do:

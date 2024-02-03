@@ -19,6 +19,7 @@ const orderSchema = new Schema(
       type: Number,
       required: true
     },
+
     totalOrder: {
       type: Number,
       required: true
@@ -33,14 +34,13 @@ const orderSchema = new Schema(
       required: false
     },
     orderItem: [
-      // Change to an array of objects for order items
       {
         title: { type: String, required: true },
         productVariant: { type: String },
+        productImageUrl: { type: String, required: false },
         quantity: { type: Number, required: true },
         unit: { type: String },
         price: { type: Number, required: true }
-        // Add other fields if needed
       }
     ],
     cancellationReason: {

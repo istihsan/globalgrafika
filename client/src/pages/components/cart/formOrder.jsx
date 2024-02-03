@@ -4,6 +4,7 @@ import FormPersonalInfo from "./formPersonalInfo";
 import FormAddressInfo from "./formAddressInfo";
 import FormDeliveryOption from "./formDeliveryOption";
 import { post } from "../../../utils/request";
+import { useNavigate } from "react-router-dom";
 
 import { useToast } from "@chakra-ui/react";
 
@@ -17,6 +18,7 @@ export default function FormOrder({
   const toast = useToast();
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
+  const navigate = useNavigate();
 
   const handleSubmitOrder = async () => {
     try {
@@ -34,11 +36,12 @@ export default function FormOrder({
           ", " +
           formData.addressInfo.postalCode,
         customerEmailAddress: formData.personalInfo.email,
-        customerPhoneNum: formData.personalInfo.phoneNumber,
+        customerPhoneNum: "+62" + formData.personalInfo.phoneNumber,
         totalOrder: totalOrder,
         orderItem: cartData.map(item => ({
           title: item.title,
           productVariant: item.productVariant,
+          productImageUrl: item.productImageUrl,
           quantity: item.quantity,
           unit: item.unit,
           price: item.price
@@ -46,14 +49,14 @@ export default function FormOrder({
         deliveryOption: formData.deliveryOption.courier
       };
 
-      await post("/api/orders", combinedData);
+      const response = await post("/api/orders", combinedData);
 
       setFormData({
         personalInfo: {},
         addressInfo: {},
         deliveryOption: {}
       });
-      setCartData([]);
+      // setCartData([]);
 
       toast({
         title: "Order created.",
@@ -62,6 +65,12 @@ export default function FormOrder({
         duration: 3000,
         isClosable: true
       });
+      if (response && response._id) {
+        const orderId = response._id.toString();
+        navigate(`/invoice/${orderId}`);
+      } else {
+        console.error("Order ID not found in the response:", response);
+      }
     } catch (error) {
       console.error("Error submitting order:", error);
       toast({
