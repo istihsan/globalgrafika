@@ -43,6 +43,10 @@ function App() {
             path="/dashboard/detailproduct/:id"
             element={<DashboardDetailProduct />}
           />
+          <Route
+            path="/dashboard/detailorder/:id"
+            element={<DashboardDetailProduct />}
+          />
           <Route exact path="/aboutus" element={<AboutUs />} />
           <Route exact path="/contactus" element={<ContactUs />} />
           <Route exact path="/login" element={<Login />} />

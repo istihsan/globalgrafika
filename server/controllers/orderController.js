@@ -28,11 +28,19 @@ const getOneOrder = async (req, res) => {
 
 const createOrder = async (req, res) => {
   try {
+    let fileUrl = null;
+    if (req.file) {
+      fileUrl = `${req.protocol}://${req.get("host")}/uploads/${
+        req.file.filename
+      }`;
+    }
     const orders = await Order.create({
       customerName: req.body.customerName,
       customerAddress: req.body.customerAddress,
       customerEmailAddress: req.body.customerEmailAddress,
       customerPhoneNum: req.body.customerPhoneNum,
+      customerNotes: req.body.customerNotes,
+      referenceFile: fileUrl,
       totalOrder: req.body.totalOrder,
       externalPaymentid: req.body.externalPaymentid,
       orderStatus: req.body.orderStatus,

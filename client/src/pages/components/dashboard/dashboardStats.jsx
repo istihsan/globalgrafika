@@ -19,7 +19,8 @@ export default function DashboardStats() {
   const [statistics, setStatistics] = useState({
     totalOrders: 0,
     totalProducts: 0,
-    totalPrice: 0
+    totalPrice: 0,
+    mostSoldProduct: null
   });
 
   useEffect(() => {
@@ -38,10 +39,32 @@ export default function DashboardStats() {
           0
         );
 
+        const productCount = {};
+
+        ordersData.forEach(order => {
+          order.orderItem.forEach(item => {
+            const { title } = item;
+            productCount[title] = (productCount[title] || 0) + 1;
+          });
+        });
+
+        console.log("Product Count:", productCount);
+
+        const mostSoldProduct = Object.keys(productCount).reduce(
+          (mostSold, productName) =>
+            productCount[productName] > productCount[mostSold]
+              ? productName
+              : mostSold,
+          Object.keys(productCount)[0] || ""
+        );
+
+        console.log("Most Sold Product:", mostSoldProduct);
+
         setStatistics({
           totalOrders,
           totalProducts,
-          totalRevenue
+          totalRevenue,
+          mostSoldProduct
         });
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -64,7 +87,7 @@ export default function DashboardStats() {
         />
         <Box minW={"100%"} mt={"2%"} justify={"center"} align={"center"}>
           <SimpleGrid
-            maxW={"70%"}
+            minW={"90%"}
             spacing={4}
             columns={4}
             templateColumns="repeat(4, 1fr)"
@@ -100,9 +123,7 @@ export default function DashboardStats() {
                 <Heading size="md"> Customer dashboard</Heading>
               </CardHeader>
               <CardBody>
-                <Text>
-                  View a summary of all your customers over the last month.
-                </Text>
+                <Text>{statistics.mostSoldProduct}</Text>
               </CardBody>
             </Card>
           </SimpleGrid>

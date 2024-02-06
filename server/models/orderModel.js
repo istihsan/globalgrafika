@@ -19,7 +19,14 @@ const orderSchema = new Schema(
       type: Number,
       required: true
     },
-
+    customerNotes: {
+      type: String,
+      required: false
+    },
+    referenceFile: {
+      type: String,
+      required: false
+    },
     totalOrder: {
       type: Number,
       required: true

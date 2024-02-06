@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
 import {
+  useDisclosure,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
   Box,
   SimpleGrid,
   Heading,
@@ -16,7 +23,8 @@ import {
   Spacer,
   Center,
   Flex,
-  useNumberInput
+  useNumberInput,
+  ModalOverlay
 } from "@chakra-ui/react";
 import { getLocalStorageItem } from "../../../utils/localStorage";
 import { FaTrash } from "react-icons/fa";
@@ -25,6 +33,8 @@ import currencyFormatter from "../../../hooks/useCurrencyFormatter";
 import useCalculateTotalOrder from "../../../hooks/useCalculateTotalOrder";
 
 const ShoppingCart = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [modalImageSrc, setModalImageSrc] = useState(null);
   const [cartData, setCartData] = useState(getLocalStorageItem("cart") || []);
   const additionalFees = 1000;
   const shippingCost = 20000;
@@ -54,6 +64,11 @@ const ShoppingCart = () => {
     );
     setCartData(updatedCart);
   };
+
+  const handleOpenModal = item => {
+    setModalImageSrc(item.referenceFile.url);
+    onOpen();
+  };
   return (
     <>
       <SimpleGrid columns={2} bgColor={"blackAlpha.100"}>
@@ -81,6 +96,40 @@ const ShoppingCart = () => {
                       <Heading size="md">{item.title}</Heading>
                       <Text py="2">{item.productVariant}</Text>
                       <Text>{`Quantity: ${item.quantity}${item.unit}`}</Text>
+                      {item.referenceFile ? (
+                        <Button
+                          onClick={() => handleOpenModal(item)}
+                          colorScheme="blue"
+                          variant="ghost"
+                          ml="-2%"
+                        >
+                          {item.referenceFile.name}
+                        </Button>
+                      ) : (
+                        <Text></Text>
+                      )}
+                      <Modal
+                        isOpen={isOpen}
+                        onClose={() => {
+                          setModalImageSrc(null);
+                          onClose();
+                        }}
+                      >
+                        <ModalOverlay />
+                        <ModalContent>
+                          <ModalHeader>Modal Title</ModalHeader>
+                          <ModalCloseButton />
+                          <ModalBody>
+                            {modalImageSrc && <Image src={modalImageSrc} />}
+                          </ModalBody>
+
+                          <ModalFooter>
+                            <Button colorScheme="blue" mr={3} onClick={onClose}>
+                              Close
+                            </Button>
+                          </ModalFooter>
+                        </ModalContent>
+                      </Modal>
                     </CardBody>
 
                     <CardFooter>

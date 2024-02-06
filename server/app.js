@@ -6,6 +6,7 @@ const orderRoutes = require("./routes/order");
 const authRoutes = require("./routes/auth");
 const app = express();
 const cors = require("cors");
+const multer = require("multer");
 
 app.use(express.json());
 
@@ -20,6 +21,17 @@ app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage });
 
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);

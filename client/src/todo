@@ -13,13 +13,13 @@ Client Related To Do:
 // checkout recap (total, ongkir, dkk di shoppingcart.jsx)
 // Order POST (belom masuk cartnya)
 // invoice page
-dashboardOrder+dashboardTableProduct page (tinggal delete aja)
+// show the blob on the cart
+dashboardTableProduct page (tinggal delete aja)
 dashboardDetailOrder (kayanya samain aja kaya invoice page + status order)
 prettier loading (kalo gabut aja)
 masih ada bug kalo langsung ke masukkin ke keranjang defaultValuenya small bahkan small aja gaada
 kalo add variant yang sama produk sama nambah satu lagi bukan cuma add quantity
-create new admin (tapi kayanya belom butuh) 
-
+create new admin (tapi kayanya belom butuh)
 
 Server Related To Do:
 // Order endpoint and recheck schema
@@ -27,9 +27,8 @@ Server Related To Do:
 // Enum api pilihan courier
 kalo large harganya beda (error pas saat masukkin ke product variantnya munculnya [object object])
 
-
-Penulisan Related To Do: 
-Deskripsi Fitur : 
+Penulisan Related To Do:
+Deskripsi Fitur :
 (User/Pembeli)
 Melakukan Pembelian
 Mengecek/Melacak Pesanan
@@ -45,29 +44,17 @@ Laporan Penjualan
 
 Products Schema + variant type [string]
 
-
-
-
-
 Jangan Lupa Indent, SSH Keys
 Host github.com
 AddKeysToAgent yes
 UseKeychain yes
 IdentityFile ~/.ssh/id_ed25519_github
 
-
-
-
 {
-   "trailingComma": "none",
-   "arrowParens": "avoid",
-   "endOfLine": "auto"
-   }
-
-
-
-
-
+"trailingComma": "none",
+"arrowParens": "avoid",
+"endOfLine": "auto"
+}
 
 NOTES
 
@@ -139,8 +126,6 @@ return
 // handle pembelian barang
 Irshadi Bagasputro11:35 PM
 res(500).({message: "Stock barang tidak cukup "})
-
-
 
 main material stock array product
 
