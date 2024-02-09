@@ -21,6 +21,7 @@ import PrivateRoute from "./privateRoute";
 import DashboardDetailProduct from "./pages/components/dashboard/dashboardDetailProduct";
 import DashboardOrder from "./pages/dashboardOrder";
 import DashboardProduct from "./pages/dashboardProduct";
+import Invoice from "./pages/invoice";
 
 function App() {
   return (
@@ -42,6 +43,10 @@ function App() {
             path="/dashboard/detailproduct/:id"
             element={<DashboardDetailProduct />}
           />
+          <Route
+            path="/dashboard/detailorder/:id"
+            element={<DashboardDetailProduct />}
+          />
           <Route exact path="/aboutus" element={<AboutUs />} />
           <Route exact path="/contactus" element={<ContactUs />} />
           <Route exact path="/login" element={<Login />} />
@@ -57,6 +62,7 @@ function App() {
             path={`/products/:categories/detail/:id`}
             element={<ProductDetail />}
           />
+          <Route path="/invoice/:id" element={<Invoice />} />
           <Route exact path="/trackorder" element={<TrackOrder />} />
           <Route exact path="/notfound" element={<NotFound />} />
           <Route path="*" element={<Navigate to="NotFound" />} />

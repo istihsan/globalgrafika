@@ -124,7 +124,7 @@ const ProductCardDigitalPrintingSmall = () => {
                     color: "gray.200"
                   }}
                 >
-                  Start from {formatCurrency(product.price)}
+                  Start from {formatCurrency(product.productVariants[0].price)}
                 </chakra.span>
                 <chakra.button
                   as={Link}

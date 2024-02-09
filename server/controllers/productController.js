@@ -32,15 +32,11 @@ const createProduct = async (req, res) => {
       title: req.body.title,
       descriptionMain: req.body.descriptionMain,
       descriptionSecondary: req.body.descriptionSecondary,
-      price: req.body.price,
       stock: req.body.stock,
       unit: req.body.unit,
       categories: req.body.categories,
       productImageUrl: req.body.productImageUrl,
-      productVariant:
-        typeof req.body.productVariant === "string"
-          ? [req.body.productVariant]
-          : req.body.productVariant
+      productVariants: req.body.productVariants || []
     });
     res.status(200).json(product);
   } catch (error) {

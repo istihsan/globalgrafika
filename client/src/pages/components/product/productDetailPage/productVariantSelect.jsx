@@ -48,6 +48,7 @@ export default function ProductVariantSelect({ onVariantChange }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [productVariants, setProductVariants] = useState([]);
+  const [productPrice, setProductPrice] = useState([]);
 
   const params = useParams();
 
@@ -56,7 +57,9 @@ export default function ProductVariantSelect({ onVariantChange }) {
       setIsLoading(true);
       try {
         const product = await get(`/api/products/${params.id}`);
-        setProductVariants(product.productVariant);
+        setProduct(product);
+        setProductVariants(product.productVariants);
+        setProductPrice(product.productVariants.price);
       } catch (error) {
         setError(error);
       } finally {
@@ -78,20 +81,22 @@ export default function ProductVariantSelect({ onVariantChange }) {
 
   const { value, getRootProps, getRadioProps } = useRadioGroup({
     name: "variant",
+    defaultValue: productVariants.length > 0 ? productVariants[0].name : "",
     onChange: handleVariantChange
   });
 
   const group = getRootProps();
   return (
     <HStack {...group}>
-      {productVariants.map((value, index) => {
-        const radio = getRadioProps({ value });
-        return (
-          <RadioCard key={index} {...radio}>
-            {value}
-          </RadioCard>
-        );
-      })}
+      {productVariants &&
+        productVariants.map((variant, index) => {
+          const radio = getRadioProps({ value: variant.name });
+          return (
+            <RadioCard key={index} {...radio}>
+              {variant.name}
+            </RadioCard>
+          );
+        })}
     </HStack>
   );
 }

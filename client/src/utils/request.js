@@ -9,13 +9,18 @@ export const get = async url => {
 
 export const post = async (url, body) => {
   try {
-    await fetch(url, {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(body)
     });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    return response.json();
   } catch (error) {
     throw error;
   }

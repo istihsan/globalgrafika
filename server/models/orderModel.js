@@ -19,6 +19,10 @@ const orderSchema = new Schema(
       type: Number,
       required: true
     },
+    referenceFile: {
+      type: String,
+      required: false
+    },
     totalOrder: {
       type: Number,
       required: true
@@ -29,18 +33,24 @@ const orderSchema = new Schema(
     },
     orderStatus: {
       type: String,
-      enum: ["Gagal", "Dalam Proses", "Telah Dikirim", "Selesai"],
-      required: false
+      enum: [
+        "Dibatalkan",
+        "Menunggu Pembayaran",
+        "Dalam Proses",
+        "Telah Dikirim",
+        "Selesai"
+      ],
+      required: true
     },
     orderItem: [
-      // Change to an array of objects for order items
       {
         title: { type: String, required: true },
         productVariant: { type: String },
+        productImageUrl: { type: String, required: false },
         quantity: { type: Number, required: true },
         unit: { type: String },
+        customerNotes: { type: String, required: false },
         price: { type: Number, required: true }
-        // Add other fields if needed
       }
     ],
     cancellationReason: {

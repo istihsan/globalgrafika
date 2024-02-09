@@ -6,11 +6,9 @@ import DashboardTableOrder from "./components/dashboard/dashboardTableOrder.jsx"
 const DashboardOrder = () => {
   return (
     <>
-      <div style={{ backgroundColor: "#f5f5f5" }}>
-        <DashboardNav />
-        <DashboardStats />
-        <DashboardTableOrder />
-      </div>
+      <DashboardNav />
+      <DashboardStats />
+      <DashboardTableOrder />
     </>
   );
 };

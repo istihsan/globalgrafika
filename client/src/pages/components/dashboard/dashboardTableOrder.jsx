@@ -16,12 +16,7 @@ import {
   Flex,
   Link
 } from "@chakra-ui/react";
-import {
-  EditIcon,
-  DeleteIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon
-} from "@chakra-ui/icons";
+import { EditIcon, ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { get } from "../../../utils/request";
 
 const DashboardTableOrder = () => {
@@ -71,7 +66,7 @@ const DashboardTableOrder = () => {
           </Heading>
         </Flex>
 
-        <Text mb={4}>Lihat, Bandingkan, Ulas Kembali, Edit, atau Hapus</Text>
+        <Text mb={4}>Lihat, Bandingkan, Ulas Kembali, atau Edit</Text>
 
         <Table variant="striped">
           <Thead bgColor={"#E5E5E5"}>
@@ -79,7 +74,7 @@ const DashboardTableOrder = () => {
               <Th>Nama Pembeli</Th>
               <Th>Total Harga</Th>
               <Th>List Pesanan</Th>
-              <Th>Edit/Delete</Th>
+              <Th>Edit</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -107,16 +102,11 @@ const DashboardTableOrder = () => {
                 <Td>
                   <IconButton
                     as={Link}
-                    href={`/dashboard/detailproduct/${order._id.toString()}`}
+                    href={`/dashboard/detailorder/${order._id.toString()}`}
                     colorScheme="blue"
                     aria-label="Edit"
                     icon={<EditIcon />}
                     mr={2}
-                  />
-                  <IconButton
-                    colorScheme="red"
-                    aria-label="Delete"
-                    icon={<DeleteIcon />}
                   />
                 </Td>
               </Tr>

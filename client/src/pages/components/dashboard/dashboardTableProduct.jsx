@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Box,
   Heading,
@@ -28,7 +28,14 @@ import {
   ModalBody,
   useDisclosure,
   Select,
-  Link
+  Link,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  AlertDialogCloseButton
 } from "@chakra-ui/react";
 import {
   EditIcon,
@@ -36,58 +43,59 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon
 } from "@chakra-ui/icons";
-import { post, get } from "../../../utils/request";
+import { post, get, del } from "../../../utils/request";
 import { useToast } from "../../../hooks/useToast";
 
 const DashboardTableProduct = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const initialRef = React.useRef(null);
-  const finalRef = React.useRef(null);
+  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
+  const cancelRef = useRef();
+  const initialRef = useRef(null);
+  const finalRef = useRef(null);
 
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [productIdToDelete, setProductIdToDelete] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const [newProduct, setNewProduct] = useState({
     name: "",
     description: "",
-    price: 0,
     stock: 0,
     descriptionMain: "",
     descriptionSecondary: "",
     unit: "",
     categories: "",
     productImageUrl: "",
-    productVariant: []
+    productVariants: []
   });
 
   const isSaveButtonDisabled =
     !newProduct.name ||
     !newProduct.descriptionMain ||
     !newProduct.descriptionSecondary ||
-    !newProduct.price ||
     !newProduct.stock ||
     !newProduct.unit ||
     !newProduct.categories ||
     !newProduct.productImageUrl ||
-    !newProduct.productVariant;
+    !newProduct.productVariants;
 
-  const { successToast } = useToast();
+  const { successToast, errorToast } = useToast();
 
   const handleOnSubmit = () => {
     const payload = {
       title: newProduct.name,
-      price: newProduct.price,
       stock: newProduct.stock,
       descriptionMain: newProduct.descriptionMain,
       descriptionSecondary: newProduct.descriptionSecondary,
       unit: newProduct.unit,
       categories: newProduct.categories,
       productImageUrl: newProduct.productImageUrl,
-      productVariant:
-        typeof newProduct.productVariant === "string"
-          ? [newProduct.productVariant]
-          : newProduct.productVariant
+      productVariants:
+        typeof newProduct.productVariants === "string"
+          ? [newProduct.productVariants]
+          : newProduct.productVariants
     };
     handleCreateNewProduct(payload);
   };
@@ -98,7 +106,29 @@ const DashboardTableProduct = () => {
       successToast("Produk Berhasil di Simpan");
       onClose();
     } catch (error) {
+      errorToast("Produk Gagal di Simpan");
       console.log(error);
+    }
+  };
+
+  const handleDeleteProduct = productId => {
+    setProductIdToDelete(productId);
+    setIsDeleteAlertOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      setIsDeleting(true);
+      await del(`/api/products/${productIdToDelete}`);
+      successToast("Produk Berhasil di Hapus");
+      const updatedProducts = await get("/api/products");
+      setProducts(updatedProducts);
+      setIsDeleteAlertOpen(false);
+    } catch (error) {
+      errorToast("Produk Gagal di Hapus");
+      console.log(error);
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -117,8 +147,9 @@ const DashboardTableProduct = () => {
 
     fetchProducts();
   }, []);
-  console.log(products);
-  console.log("==============");
+  // console.log(products);
+  // console.log("==============");
+
   const formatCurrency = amount => {
     const formatter = new Intl.NumberFormat("id-ID", {
       style: "currency",
@@ -144,7 +175,7 @@ const DashboardTableProduct = () => {
           </Heading>
           <Spacer />
           <Button colorScheme="green" onClick={onOpen}>
-            Add New Order
+            Add New Product
           </Button>
         </Flex>
 
@@ -194,16 +225,6 @@ const DashboardTableProduct = () => {
                     })
                   }
                   value={newProduct.descriptionSecondary}
-                />
-              </FormControl>
-              <FormControl>
-                <FormLabel>Harga Produk</FormLabel>
-                <Input
-                  placeholder="250.000"
-                  onChange={e =>
-                    setNewProduct({ ...newProduct, price: e.target.value })
-                  }
-                  value={newProduct.price}
                 />
               </FormControl>
               <FormControl mt={4}>
@@ -268,31 +289,54 @@ const DashboardTableProduct = () => {
               </FormControl>
               <FormControl>
                 <FormLabel>Variant Produk</FormLabel>
-                {newProduct.productVariant.map((variant, index) => (
+                {(newProduct.productVariants || []).map((variant, index) => (
                   <Flex key={index} mb={2}>
                     <Input
                       placeholder={`Variant ${index + 1}`}
                       onChange={e => {
-                        const updatedVariants = [...newProduct.productVariant];
-                        updatedVariants[index] = e.target.value;
+                        const updatedVariants = [
+                          ...(newProduct.productVariants || [])
+                        ];
+                        updatedVariants[index] = {
+                          name: e.target.value,
+                          price: variant.price || 0
+                        };
                         setNewProduct({
                           ...newProduct,
-                          productVariant: updatedVariants
+                          productVariants: updatedVariants
                         });
                       }}
-                      value={variant}
+                      value={variant?.name || ""}
+                    />
+                    <Input
+                      placeholder={`Price for Variant ${index + 1}`}
+                      type="number"
+                      onChange={e => {
+                        const updatedVariants = [
+                          ...(newProduct.productVariants || [])
+                        ];
+                        updatedVariants[index] = {
+                          name: variant.name || "",
+                          price: e.target.value
+                        };
+                        setNewProduct({
+                          ...newProduct,
+                          productVariants: updatedVariants
+                        });
+                      }}
+                      value={variant?.price || 0}
                     />
                     <IconButton
                       aria-label="Remove Variant"
                       icon={<DeleteIcon />}
                       onClick={() => {
                         const updatedVariants = [
-                          ...newProduct.productVariant.slice(0, index),
-                          ...newProduct.productVariant.slice(index + 1)
+                          ...(newProduct.productVariants || []).slice(0, index),
+                          ...(newProduct.productVariants || []).slice(index + 1)
                         ];
                         setNewProduct({
                           ...newProduct,
-                          productVariant: updatedVariants
+                          productVariants: updatedVariants
                         });
                       }}
                     />
@@ -302,7 +346,10 @@ const DashboardTableProduct = () => {
                   onClick={() =>
                     setNewProduct({
                       ...newProduct,
-                      productVariant: [...newProduct.productVariant, ""]
+                      productVariants: [
+                        ...(newProduct.productVariants || []),
+                        { name: "", price: 0 }
+                      ]
                     })
                   }
                 >
@@ -325,14 +372,45 @@ const DashboardTableProduct = () => {
           </ModalContent>
         </Modal>
 
+        <AlertDialog
+          isOpen={isDeleteAlertOpen}
+          leastDestructiveRef={cancelRef}
+          onClose={() => setIsDeleteAlertOpen(false)}
+        >
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                Delete Product
+              </AlertDialogHeader>
+
+              <AlertDialogBody>
+                Are you sure you want to delete this product? This action cannot
+                be undone.
+              </AlertDialogBody>
+
+              <AlertDialogFooter>
+                <Button
+                  ref={cancelRef}
+                  onClick={() => setIsDeleteAlertOpen(false)}
+                >
+                  Cancel
+                </Button>
+                <Button colorScheme="red" onClick={handleConfirmDelete} ml={3}>
+                  Delete
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
+
         <Text mb={4}>Lihat, Bandingkan, Ulas Kembali, Edit, atau Hapus</Text>
 
         <Table variant="striped">
           <Thead bgColor={"#E5E5E5"}>
             <Tr>
               <Th>Product Name</Th>
-              <Th>Total Price</Th>
-              <Th>Stock Produk</Th>
+              <Th>Start From Price</Th>
+              <Th>Stock Product</Th>
               <Th>Edit/Delete</Th>
             </Tr>
           </Thead>
@@ -351,7 +429,8 @@ const DashboardTableProduct = () => {
               <Tr key={product.title}>
                 <Td>{product.title}</Td>
                 <Td>
-                  {formatCurrency(product.price)}/{product.unit}
+                  {formatCurrency(product.productVariants[0].price)}/
+                  {product.unit}
                 </Td>
                 <Td>{product.stock}</Td>
                 <Td>
@@ -364,6 +443,7 @@ const DashboardTableProduct = () => {
                     mr={2}
                   />
                   <IconButton
+                    onClick={() => handleDeleteProduct(product._id)}
                     colorScheme="red"
                     aria-label="Delete"
                     icon={<DeleteIcon />}
