@@ -10,7 +10,11 @@ import {
   VStack,
   Icon,
   Grid,
-  GridItem
+  GridItem,
+  Button,
+  Center,
+  Tag,
+  Link
 } from "@chakra-ui/react";
 import {
   MdHeadset,
@@ -47,7 +51,21 @@ const Invoice = () => {
   return (
     <>
       <NavBar />
-      <Flex alignItems="center" justifyContent="center" minHeight="70vh">
+      <Center>
+        <Tag
+          mt={3}
+          color="black"
+          fontWeight="bold"
+          size="lg"
+          fontSize="lg"
+          textTransform={"uppercase"}
+          variant={"subtle"}
+          colorScheme="blue"
+        >
+          Your Order Number: {order._id}
+        </Tag>
+      </Center>
+      <Flex alignItems="center" justifyContent="center" minHeight="61vh">
         <Box minW="100%">
           <Grid templateColumns="repeat(3, 1fr)">
             <GridItem colSpan={2}>
@@ -100,7 +118,20 @@ const Invoice = () => {
                             >
                               Product Variant: {orderItem.productVariant}
                             </chakra.p>
-                            {/* Your existing code for other details */}
+                            {orderItem.customerNotes ? (
+                              <chakra.p
+                                mt={2}
+                                fontSize="sm"
+                                color="gray.600"
+                                _dark={{
+                                  color: "gray.400"
+                                }}
+                              >
+                                Notes: {orderItem.customerNotes}
+                              </chakra.p>
+                            ) : (
+                              ""
+                            )}
                           </Box>
                         </Flex>
                       </Card>
@@ -133,7 +164,7 @@ const Invoice = () => {
                       fontWeight="bold"
                       fontSize="lg"
                     >
-                      Menunggu Pembayaran
+                      {order.orderStatus}
                     </chakra.h1>
                   </Flex>
 
@@ -195,6 +226,16 @@ const Invoice = () => {
                   </Box>
                 </Box>
               </Flex>
+              <Center>
+                <Button
+                  as={Link}
+                  href="/contactus"
+                  colorScheme="blue"
+                  variant="outline"
+                >
+                  Contact Us
+                </Button>
+              </Center>
             </GridItem>
           </Grid>
         </Box>

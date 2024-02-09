@@ -19,10 +19,6 @@ const orderSchema = new Schema(
       type: Number,
       required: true
     },
-    customerNotes: {
-      type: String,
-      required: false
-    },
     referenceFile: {
       type: String,
       required: false
@@ -37,8 +33,14 @@ const orderSchema = new Schema(
     },
     orderStatus: {
       type: String,
-      enum: ["Gagal", "Dalam Proses", "Telah Dikirim", "Selesai"],
-      required: false
+      enum: [
+        "Dibatalkan",
+        "Menunggu Pembayaran",
+        "Dalam Proses",
+        "Telah Dikirim",
+        "Selesai"
+      ],
+      required: true
     },
     orderItem: [
       {
@@ -47,6 +49,7 @@ const orderSchema = new Schema(
         productImageUrl: { type: String, required: false },
         quantity: { type: Number, required: true },
         unit: { type: String },
+        customerNotes: { type: String, required: false },
         price: { type: Number, required: true }
       }
     ],

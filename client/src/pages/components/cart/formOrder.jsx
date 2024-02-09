@@ -38,13 +38,15 @@ export default function FormOrder({
         customerEmailAddress: formData.personalInfo.email,
         customerPhoneNum: "+62" + formData.personalInfo.phoneNumber,
         totalOrder: totalOrder,
+        orderStatus: "Menunggu Pembayaran",
         orderItem: cartData.map(item => ({
           title: item.title,
           productVariant: item.productVariant,
           productImageUrl: item.productImageUrl,
           quantity: item.quantity,
           unit: item.unit,
-          price: item.price
+          price: item.price,
+          customerNotes: item.customerNote
         })),
         deliveryOption: formData.deliveryOption.courier
       };

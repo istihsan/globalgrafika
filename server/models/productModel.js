@@ -1,6 +1,17 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const productVariantsSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  price: {
+    type: Number,
+    required: true
+  }
+});
+
 const productSchema = new Schema(
   {
     title: {
@@ -14,10 +25,6 @@ const productSchema = new Schema(
     descriptionSecondary: {
       type: String,
       required: false
-    },
-    price: {
-      type: Number,
-      required: true
     },
     stock: {
       type: Number,
@@ -42,10 +49,7 @@ const productSchema = new Schema(
       type: String,
       required: false
     },
-    productVariant: {
-      type: [String],
-      required: false
-    }
+    productVariants: [productVariantsSchema]
   },
   { timestamps: true }
 );

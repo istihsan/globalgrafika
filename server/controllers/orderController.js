@@ -1,5 +1,41 @@
 const Order = require("../models/orderModel");
 const mongoose = require("mongoose");
+const { Storage } = require("@google-cloud/storage");
+
+const storage = new Storage({
+  projectId: "big-oxygen-413514",
+  keyFilename: "big-oxygen-413514-63f58993c739.json"
+});
+const bucket = storage.bucket("globalgrafikabucket");
+
+const uploadFileToBucket = async file => {
+  try {
+    const fileName = `${Date.now()}-${file.originalname}`;
+    const fileUpload = bucket.file(fileName);
+
+    const stream = fileUpload.createWriteStream({
+      metadata: {
+        contentType: file.mimetype,
+        name: fileName
+      }
+    });
+
+    stream.on("error", error => {
+      console.error(error);
+      throw new Error("Error uploading to GCS");
+    });
+
+    stream.on("finish", () => {
+      console.log(`File uploaded to: ${fileName}`);
+    });
+
+    stream.end(file.buffer);
+    return fileName;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error uploading to GCS");
+  }
+};
 
 const getAllOrder = async (req, res) => {
   try {
@@ -30,16 +66,13 @@ const createOrder = async (req, res) => {
   try {
     let fileUrl = null;
     if (req.file) {
-      fileUrl = `${req.protocol}://${req.get("host")}/uploads/${
-        req.file.filename
-      }`;
+      fileUrl = await uploadFileToBucket(req.file);
     }
     const orders = await Order.create({
       customerName: req.body.customerName,
       customerAddress: req.body.customerAddress,
       customerEmailAddress: req.body.customerEmailAddress,
       customerPhoneNum: req.body.customerPhoneNum,
-      customerNotes: req.body.customerNotes,
       referenceFile: fileUrl,
       totalOrder: req.body.totalOrder,
       externalPaymentid: req.body.externalPaymentid,

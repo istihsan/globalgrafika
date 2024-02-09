@@ -130,6 +130,11 @@ const ShoppingCart = () => {
                           </ModalFooter>
                         </ModalContent>
                       </Modal>
+                      {item.customerNote ? (
+                        <Text>{`Note: ${item.customerNote}`}</Text>
+                      ) : (
+                        <Text></Text>
+                      )}
                     </CardBody>
 
                     <CardFooter>

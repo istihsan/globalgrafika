@@ -7,6 +7,7 @@ const authRoutes = require("./routes/auth");
 const app = express();
 const cors = require("cors");
 const multer = require("multer");
+const { Storage } = require("@google-cloud/storage");
 
 app.use(express.json());
 
@@ -22,16 +23,21 @@ app.use((req, res, next) => {
   next();
 });
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
-  }
+const storage = new Storage({
+  projectId: "big-oxygen-413514",
+  keyFilename: "big-oxygen-413514-63f58993c739.json"
 });
 
-const upload = multer({ storage: storage });
+const bucket = storage.bucket("globalgrafikabucket");
+
+const storageMulter = multer.memoryStorage(); // or any other storage strategy as needed
+
+const upload = multer({
+  storage: storageMulter,
+  limits: {
+    fileSize: 50 * 1024 * 1024 // 50 MB limit
+  }
+});
 
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);

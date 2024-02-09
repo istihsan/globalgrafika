@@ -36,14 +36,13 @@ const DashboardDetailProduct = () => {
   const [newProduct, setNewProduct] = useState({
     name: "",
     description: "",
-    price: "",
     stock: "",
     descriptionMain: "",
     descriptionSecondary: "",
     unit: "",
     categories: "",
     productImageUrl: "",
-    productVariant: []
+    productVariants: []
   });
 
   const { successToast } = useToast();
@@ -70,12 +69,6 @@ const DashboardDetailProduct = () => {
       payload.descriptionSecondary = newProduct.descriptionSecondary;
     }
     if (
-      newProduct.price !== product.price &&
-      isNotEmptyString(newProduct.price)
-    ) {
-      payload.price = newProduct.price;
-    }
-    if (
       newProduct.stock !== product.stock &&
       isNotEmptyString(newProduct.stock)
     ) {
@@ -97,13 +90,14 @@ const DashboardDetailProduct = () => {
       payload.productImageUrl = newProduct.productImageUrl;
     }
     if (
-      !arraysEqual(newProduct.productVariant, product.productVariant) &&
-      newProduct.productVariant.some(isNotEmptyString)
+      !arraysEqual(newProduct.productVariants, product.productVariants) &&
+      Array.isArray(newProduct.productVariants) &&
+      newProduct.productVariants.length > 0
     ) {
-      payload.productVariant =
-        typeof newProduct.productVariant === "string"
-          ? [newProduct.productVariant]
-          : newProduct.productVariant;
+      payload.productVariants = newProduct.productVariants.map(variant => ({
+        name: variant.name || "",
+        price: variant.price || ""
+      }));
     }
     if (Object.keys(payload).length > 0) {
       handleUpdateProduct(payload);
@@ -203,16 +197,6 @@ const DashboardDetailProduct = () => {
               value={newProduct.descriptionSecondary}
             />
           </FormControl>
-          <FormControl>
-            <FormLabel>Harga Produk</FormLabel>
-            <Input
-              placeholder={product.price}
-              onChange={e =>
-                setNewProduct({ ...newProduct, price: e.target.value })
-              }
-              value={newProduct.price}
-            />
-          </FormControl>
           <FormControl mt={4}>
             <FormLabel>Jumlah Stok</FormLabel>
             <Input
@@ -275,31 +259,49 @@ const DashboardDetailProduct = () => {
           </FormControl>
           <FormControl>
             <FormLabel>Variant Produk</FormLabel>
-            {newProduct.productVariant.map((variant, index) => (
+            {newProduct.productVariants.map((variant, index) => (
               <Flex key={index} mb={2}>
                 <Input
                   placeholder={`Variant ${index + 1}`}
                   onChange={e => {
-                    const updatedVariants = [...newProduct.productVariant];
-                    updatedVariants[index] = e.target.value;
+                    const updatedVariants = [...newProduct.productVariants];
+                    updatedVariants[index] = {
+                      name: e.target.value,
+                      price: variant.price || ""
+                    };
                     setNewProduct({
                       ...newProduct,
-                      productVariant: updatedVariants
+                      productVariants: updatedVariants
                     });
                   }}
-                  value={variant}
+                  value={variant.name}
+                />
+                <Input
+                  placeholder={`Price for Variant ${index + 1}`}
+                  onChange={e => {
+                    const updatedVariants = [...newProduct.productVariants];
+                    updatedVariants[index] = {
+                      name: variant.name || "",
+                      price: e.target.value
+                    };
+                    setNewProduct({
+                      ...newProduct,
+                      productVariants: updatedVariants
+                    });
+                  }}
+                  value={variant.price}
                 />
                 <IconButton
                   aria-label="Remove Variant"
                   icon={<DeleteIcon />}
                   onClick={() => {
                     const updatedVariants = [
-                      ...newProduct.productVariant.slice(0, index),
-                      ...newProduct.productVariant.slice(index + 1)
+                      ...newProduct.productVariants.slice(0, index),
+                      ...newProduct.productVariants.slice(index + 1)
                     ];
                     setNewProduct({
                       ...newProduct,
-                      productVariant: updatedVariants
+                      productVariants: updatedVariants
                     });
                   }}
                 />
@@ -309,7 +311,7 @@ const DashboardDetailProduct = () => {
               onClick={() =>
                 setNewProduct({
                   ...newProduct,
-                  productVariant: [...newProduct.productVariant, ""]
+                  productVariants: [...newProduct.productVariants, ""]
                 })
               }
             >

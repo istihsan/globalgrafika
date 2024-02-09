@@ -38,10 +38,12 @@ export default function ProductDescription() {
   const [product, setProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [customerNotes, setCustomerNotes] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(null);
   const [cartItems, setCartItems] = useState([]);
-  const [selectedVariant, setSelectedVariant] = useState("Small");
+  const [selectedVariant, setSelectedVariant] = useState("");
+  const [selectedVariantPrice, setSelectedVariantPrice] = useState(0);
   const params = useParams();
 
   const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
@@ -63,6 +65,11 @@ export default function ProductDescription() {
       try {
         const product = await get(`/api/products/${params.id}`);
         setProduct(product);
+        if (product.productVariants && product.productVariants.length > 0) {
+          const defaultVariant = product.productVariants[0];
+          setSelectedVariant(defaultVariant.name);
+          setSelectedVariantPrice(defaultVariant.price);
+        }
       } catch (error) {
         setError(error);
       } finally {
@@ -93,11 +100,12 @@ export default function ProductDescription() {
     const newItem = {
       id: product.id,
       title: product.title,
-      price: product.price,
+      price: selectedVariantPrice,
       productImageUrl: product.productImageUrl,
       productVariant: selectedVariant,
       quantity: input.value,
       unit: product.unit,
+      customerNote: customerNotes,
       referenceFile: selectedFile
         ? {
             name: selectedFile.name,
@@ -118,6 +126,10 @@ export default function ProductDescription() {
   };
   const handleVariantChange = value => {
     setSelectedVariant(value);
+    const selectedVariant = product.productVariants.find(
+      variant => variant.name === value
+    );
+    setSelectedVariantPrice(selectedVariant ? selectedVariant.price : 0);
   };
 
   return (
@@ -154,7 +166,7 @@ export default function ProductDescription() {
                 fontWeight={500}
                 fontSize={"2xl"}
               >
-                {currencyFormatter(product.price)}/{product.unit}
+                {currencyFormatter(selectedVariantPrice)}/{product.unit}
               </Text>
             </Box>
 
@@ -201,8 +213,16 @@ export default function ProductDescription() {
                   color: "gray.50"
                 }}
               >
-                Upload Referensi
+                Upload Referensi / Special Request
               </FormLabel>
+              <FormControl mr="5%">
+                <Input
+                  id="special-req"
+                  placeholder="ex: Perbanyak warna biru"
+                  value={customerNotes}
+                  onChange={e => setCustomerNotes(e.target.value)}
+                />
+              </FormControl>
               <Flex
                 mt={1}
                 justify="center"

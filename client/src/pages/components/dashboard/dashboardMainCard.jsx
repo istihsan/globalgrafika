@@ -89,7 +89,7 @@ export default function DashboardMainCard() {
   const { onToggle } = useDisclosure();
   return (
     <Box p={4}>
-      <Container maxW={"5xl"} minH="50vh" mt={12}>
+      <Container maxW={"5xl"} minH="30vh" mt={12}>
         <Flex flexWrap="wrap" gridGap={6} justify="center">
           <SimpleGrid spacing={4} columns={3} templateColumns="repeat(3, 1fr)">
             <Card
