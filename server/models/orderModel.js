@@ -5,19 +5,19 @@ const orderSchema = new Schema(
   {
     customerName: {
       type: String,
-      required: true
+      required: false
     },
     customerAddress: {
       type: String,
-      required: true
+      required: false
     },
     customerEmailAddress: {
       type: String,
-      required: true
+      required: false
     },
     customerPhoneNum: {
       type: Number,
-      required: true
+      required: false
     },
     referenceFile: {
       type: String,
@@ -25,7 +25,7 @@ const orderSchema = new Schema(
     },
     totalOrder: {
       type: Number,
-      required: true
+      required: false
     },
     externalPaymentid: {
       type: Number,
@@ -40,17 +40,18 @@ const orderSchema = new Schema(
         "Telah Dikirim",
         "Selesai"
       ],
-      required: true
+      required: false
     },
     orderItem: [
       {
-        title: { type: String, required: true },
+        title: { type: String, required: false },
         productVariant: { type: String },
         productImageUrl: { type: String, required: false },
-        quantity: { type: Number, required: true },
+        quantity: { type: Number, required: false },
         unit: { type: String },
         customerNotes: { type: String, required: false },
-        price: { type: Number, required: true }
+        price: { type: Number, required: false },
+        referenceFile: { type: String, required: false }
       }
     ],
     cancellationReason: {
@@ -60,7 +61,7 @@ const orderSchema = new Schema(
     deliveryOption: {
       type: String,
       enum: ["JNE", "Pos Indonesia", "SiCepat"],
-      required: true
+      required: false
     }
   },
   { timestamps: true }

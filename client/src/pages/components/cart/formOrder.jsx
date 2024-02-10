@@ -22,36 +22,77 @@ export default function FormOrder({
 
   const handleSubmitOrder = async () => {
     try {
-      const combinedData = {
-        customerName:
-          formData.personalInfo.firstName +
-          " " +
-          formData.personalInfo.lastName,
-        customerAddress:
-          formData.addressInfo.streetAddress +
+      // const combinedData = {
+      //   customerName:
+      //     formData.personalInfo.firstName +
+      //     " " +
+      //     formData.personalInfo.lastName,
+      //   customerAddress:
+      //     formData.addressInfo.streetAddress +
+      //     ", " +
+      //     formData.addressInfo.city +
+      //     ", " +
+      //     formData.addressInfo.subdistrict +
+      //     ", " +
+      //     formData.addressInfo.postalCode,
+      //   customerEmailAddress: formData.personalInfo.email,
+      //   customerPhoneNum: "+62" + formData.personalInfo.phoneNumber,
+      //   totalOrder: totalOrder,
+      //   orderStatus: "Menunggu Pembayaran",
+      //   orderItem: cartData.map(item => ({
+      //     title: item.title,
+      //     productVariant: item.productVariant,
+      //     productImageUrl: item.productImageUrl,
+      //     quantity: item.quantity,
+      //     unit: item.unit,
+      //     price: item.price,
+      //     customerNotes: item.customerNote,
+      //     referenceFile: item.file
+      //   })),
+      //   deliveryOption: formData.deliveryOption.courier
+      // };
+      const dataToUpload = new FormData();
+      dataToUpload.append(
+        "customerName",
+        formData.personalInfo.firstName + " " + formData.personalInfo.lastName
+      );
+      dataToUpload.append(
+        "customerAddress",
+        formData.addressInfo.streetAddress +
           ", " +
           formData.addressInfo.city +
           ", " +
           formData.addressInfo.subdistrict +
           ", " +
-          formData.addressInfo.postalCode,
-        customerEmailAddress: formData.personalInfo.email,
-        customerPhoneNum: "+62" + formData.personalInfo.phoneNumber,
-        totalOrder: totalOrder,
-        orderStatus: "Menunggu Pembayaran",
-        orderItem: cartData.map(item => ({
+          formData.addressInfo.postalCode
+      );
+      dataToUpload.append("customerEmailAddress", formData.personalInfo.email);
+      dataToUpload.append(
+        "customerPhoneNum",
+        "+62" + formData.personalInfo.phoneNumber
+      );
+      dataToUpload.append("totalOrder", totalOrder);
+      dataToUpload.append("orderStatus", "Menunggu Pembayaran");
+      dataToUpload.append(
+        "orderItem",
+        cartData.map(item => ({
           title: item.title,
           productVariant: item.productVariant,
           productImageUrl: item.productImageUrl,
           quantity: item.quantity,
           unit: item.unit,
           price: item.price,
-          customerNotes: item.customerNote
-        })),
-        deliveryOption: formData.deliveryOption.courier
-      };
+          customerNotes: item.customerNote,
+          referenceFile: item.file
+        }))
+      );
+      dataToUpload.append("deliveryOption", formData.deliveryOption.courier);
 
-      const response = await post("/api/orders", combinedData);
+      const response = await post(
+        "/api/orders",
+        dataToUpload,
+        "MULTIPART-FORM-DATA"
+      );
 
       setFormData({
         personalInfo: {},

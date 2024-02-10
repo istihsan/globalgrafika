@@ -10,9 +10,10 @@ const bucket = storage.bucket("globalgrafikabucket");
 
 const uploadFileToBucket = async file => {
   try {
+    console.log(file);
     const fileName = `${Date.now()}-${file.originalname}`;
+    console.log("Upload to File Bucket");
     const fileUpload = bucket.file(fileName);
-
     const stream = fileUpload.createWriteStream({
       metadata: {
         contentType: file.mimetype,
@@ -63,25 +64,27 @@ const getOneOrder = async (req, res) => {
 };
 
 const createOrder = async (req, res) => {
+  console.log(req.body);
   try {
     let fileUrl = null;
     if (req.file) {
       fileUrl = await uploadFileToBucket(req.file);
     }
-    const orders = await Order.create({
-      customerName: req.body.customerName,
-      customerAddress: req.body.customerAddress,
-      customerEmailAddress: req.body.customerEmailAddress,
-      customerPhoneNum: req.body.customerPhoneNum,
-      referenceFile: fileUrl,
-      totalOrder: req.body.totalOrder,
-      externalPaymentid: req.body.externalPaymentid,
-      orderStatus: req.body.orderStatus,
-      orderItem: req.body.orderItem,
-      cancellationReason: req.body.cancellationReason,
-      deliveryOption: req.body.deliveryOption
-    });
-    res.status(200).json(orders);
+    // const orders = await Order.create({
+    //   customerName: req.body.customerName,
+    //   customerAddress: req.body.customerAddress,
+    //   customerEmailAddress: req.body.customerEmailAddress,
+    //   customerPhoneNum: req.body.customerPhoneNum,
+    //   referenceFile: fileUrl,
+    //   totalOrder: req.body.totalOrder,
+    //   externalPaymentid: req.body.externalPaymentid,
+    //   orderStatus: req.body.orderStatus,
+    //   orderItem: req.body.orderItem,
+    //   cancellationReason: req.body.cancellationReason,
+    //   deliveryOption: req.body.deliveryOption
+    // });
+    res.status(200).json({});
+    // res.status(200).json(orders);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });

@@ -1,4 +1,6 @@
 require("dotenv").config();
+// const bodyParser = require("body-parser");
+// const formidableMiddleware = require("express-formidable");
 const express = require("express");
 const db = require("./db/index");
 const productRoutes = require("./routes/products");
@@ -7,15 +9,18 @@ const authRoutes = require("./routes/auth");
 const app = express();
 const cors = require("cors");
 const multer = require("multer");
-const { Storage } = require("@google-cloud/storage");
+const uploads = multer();
 
-app.use(express.json());
+const { Storage } = require("@google-cloud/storage");
 
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
   console.log("Connected to the database");
 });
 
+app.use(express.json());
+app.use(uploads.array());
+app.use(express.static("public"));
 app.use(cors());
 
 app.use((req, res, next) => {
