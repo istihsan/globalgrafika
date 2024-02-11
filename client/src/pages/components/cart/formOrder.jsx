@@ -11,7 +11,7 @@ import { useToast } from "@chakra-ui/react";
 export default function FormOrder({
   cartData,
   setCartData,
-  formData,
+  formData: initialFormData = {},
   setFormData,
   totalOrder
 }) {
@@ -19,80 +19,62 @@ export default function FormOrder({
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
   const navigate = useNavigate();
+  const [personalInfo, setPersonalInfo] = useState(
+    initialFormData.personalInfo || {}
+  );
+  const [addressInfo, setAddressInfo] = useState(
+    initialFormData.addressInfo || {}
+  );
+  const [deliveryOption, setDeliveryOption] = useState(
+    initialFormData.deliveryOption || {}
+  );
+
+  const handlePersonalInfoChange = (field, value) => {
+    setPersonalInfo(prevData => ({
+      ...prevData,
+      [field]: value
+    }));
+  };
+
+  const handleAddressInfoChange = (field, value) => {
+    setAddressInfo(prevData => ({
+      ...prevData,
+      [field]: value
+    }));
+  };
+
+  const handleDeliveryOptionChange = (field, value) => {
+    setDeliveryOption(prevData => ({
+      ...prevData,
+      [field]: value
+    }));
+  };
 
   const handleSubmitOrder = async () => {
     try {
-      // const combinedData = {
-      //   customerName:
-      //     formData.personalInfo.firstName +
-      //     " " +
-      //     formData.personalInfo.lastName,
-      //   customerAddress:
-      //     formData.addressInfo.streetAddress +
-      //     ", " +
-      //     formData.addressInfo.city +
-      //     ", " +
-      //     formData.addressInfo.subdistrict +
-      //     ", " +
-      //     formData.addressInfo.postalCode,
-      //   customerEmailAddress: formData.personalInfo.email,
-      //   customerPhoneNum: "+62" + formData.personalInfo.phoneNumber,
-      //   totalOrder: totalOrder,
-      //   orderStatus: "Menunggu Pembayaran",
-      //   orderItem: cartData.map(item => ({
-      //     title: item.title,
-      //     productVariant: item.productVariant,
-      //     productImageUrl: item.productImageUrl,
-      //     quantity: item.quantity,
-      //     unit: item.unit,
-      //     price: item.price,
-      //     customerNotes: item.customerNote,
-      //     referenceFile: item.file
-      //   })),
-      //   deliveryOption: formData.deliveryOption.courier
-      // };
       const dataToUpload = new FormData();
       dataToUpload.append(
         "customerName",
-        formData.personalInfo.firstName + " " + formData.personalInfo.lastName
+        personalInfo.firstName + " " + personalInfo.lastName
       );
       dataToUpload.append(
         "customerAddress",
-        formData.addressInfo.streetAddress +
+        addressInfo.streetAddress +
           ", " +
-          formData.addressInfo.city +
+          addressInfo.city +
           ", " +
-          formData.addressInfo.subdistrict +
+          addressInfo.subdistrict +
           ", " +
-          formData.addressInfo.postalCode
+          addressInfo.postalCode
       );
-      dataToUpload.append("customerEmailAddress", formData.personalInfo.email);
-      dataToUpload.append(
-        "customerPhoneNum",
-        "+62" + formData.personalInfo.phoneNumber
-      );
+      dataToUpload.append("customerEmailAddress", personalInfo.email);
+      dataToUpload.append("customerPhoneNum", "+62" + personalInfo.phoneNumber);
       dataToUpload.append("totalOrder", totalOrder);
       dataToUpload.append("orderStatus", "Menunggu Pembayaran");
-      dataToUpload.append(
-        "orderItem",
-        cartData.map(item => ({
-          title: item.title,
-          productVariant: item.productVariant,
-          productImageUrl: item.productImageUrl,
-          quantity: item.quantity,
-          unit: item.unit,
-          price: item.price,
-          customerNotes: item.customerNote,
-          referenceFile: item.file
-        }))
-      );
-      dataToUpload.append("deliveryOption", formData.deliveryOption.courier);
+      dataToUpload.append("orderItem", JSON.stringify(cartData));
+      dataToUpload.append("deliveryOption", deliveryOption.courier);
 
-      const response = await post(
-        "/api/orders",
-        dataToUpload,
-        "MULTIPART-FORM-DATA"
-      );
+      const response = await post("/api/orders", dataToUpload);
 
       setFormData({
         personalInfo: {},
@@ -147,11 +129,20 @@ export default function FormOrder({
           isAnimated
         ></Progress>
         {step === 1 ? (
-          <FormPersonalInfo formData={formData} setFormData={setFormData} />
+          <FormPersonalInfo
+            formData={personalInfo}
+            handleInputChange={handlePersonalInfoChange}
+          />
         ) : step === 2 ? (
-          <FormAddressInfo formData={formData} setFormData={setFormData} />
+          <FormAddressInfo
+            formData={addressInfo}
+            handleInputChange={handleAddressInfoChange}
+          />
         ) : (
-          <FormDeliveryOption formData={formData} setFormData={setFormData} />
+          <FormDeliveryOption
+            formData={deliveryOption}
+            handleInputChange={handleDeliveryOptionChange}
+          />
         )}
         <ButtonGroup mt="5%" w="100vw">
           <Flex w="100vw" justifyContent="space-between">

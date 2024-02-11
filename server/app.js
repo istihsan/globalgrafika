@@ -19,8 +19,8 @@ db.once("open", () => {
 });
 
 app.use(express.json());
-app.use(uploads.array());
-app.use(express.static("public"));
+// app.use(uploads.array());
+// app.use(express.static("public"));
 app.use(cors());
 
 app.use((req, res, next) => {

@@ -7,16 +7,7 @@ import {
   SimpleGrid
 } from "@chakra-ui/react";
 
-export default function FormDeliveryOption({ formData, setFormData }) {
-  const handleInputChange = (field, value) => {
-    setFormData(prevData => ({
-      ...prevData,
-      deliveryOption: {
-        ...prevData.deliveryOption,
-        [field]: value
-      }
-    }));
-  };
+export default function FormDeliveryOption({ formData, handleInputChange }) {
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal">
@@ -45,6 +36,7 @@ export default function FormDeliveryOption({ formData, setFormData }) {
             w="full"
             rounded="md"
             onChange={e => handleInputChange("courier", e.target.value)}
+            value={formData.courier || ""}
           >
             <option>JNE</option>
             <option>Pos Indonesia</option>

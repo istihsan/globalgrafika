@@ -30,9 +30,6 @@ import useCalculateTotalOrder from "../../../hooks/useCalculateTotalOrder";
 
 const ShoppingCart = () => {
   const [cartData, setCartData] = useState(getLocalStorageItem("cart") || []);
-  const [fileStates, setFileStates] = useState(
-    Array(cartData.length).fill(null)
-  );
   const additionalFees = 1000;
   const shippingCost = 20000;
   const { totalOrder, totalItemsPrice } = useCalculateTotalOrder(
@@ -50,6 +47,12 @@ const ShoppingCart = () => {
     localStorage.setItem("cart", JSON.stringify(cartData));
   }, [cartData]);
 
+  useEffect(() => {
+    setCartData(prevCartData =>
+      prevCartData.map(item => ({ ...item, file: null }))
+    );
+  }, []);
+
   const handleDelete = itemToDelete => {
     const updatedCart = cartData.filter(item => item !== itemToDelete);
     setCartData(updatedCart);
@@ -64,8 +67,16 @@ const ShoppingCart = () => {
     });
   };
 
-  const handleRemoveFile = () => {
-    setFileStates(Array(cartData.length).fill(null));
+  const handleRemoveFile = index => {
+    setCartData(_cartData => {
+      const updatedCartData = [..._cartData];
+      updatedCartData[index].file = null;
+      return updatedCartData;
+    });
+    const fileInput = document.getElementById(`file-upload-${index}`);
+    if (fileInput) {
+      fileInput.value = "";
+    }
   };
 
   console.log(cartData, "=============");
@@ -116,9 +127,14 @@ const ShoppingCart = () => {
                           <Stack spacing={1} textAlign="center">
                             {hasImage ? (
                               <Image
-                                onClick={handleRemoveFile}
-                                src={URL.createObjectURL(item.file)}
-                                alt="Uploaded File"
+                                onClick={() => handleRemoveFile(index)}
+                                src={
+                                  item.file instanceof Blob ||
+                                  item.file instanceof File
+                                    ? URL.createObjectURL(item.file)
+                                    : ""
+                                }
+                                alt={item.file.name}
                                 boxSize={48}
                               />
                             ) : (
@@ -205,7 +221,10 @@ const ShoppingCart = () => {
                             </Text>
                           )}
                           {hasImage && (
-                            <Button size="sm" onClick={handleRemoveFile}>
+                            <Button
+                              size="sm"
+                              onClick={() => handleRemoveFile(index)}
+                            >
                               Remove File
                             </Button>
                           )}
@@ -326,10 +345,22 @@ function QuantityInput({ item, index, setCartData }) {
       return updatedCartData;
     });
   };
+  const handleOnDecreaseQuantity = () => {
+    setCartData(_cartData => {
+      const updatedCartData = [..._cartData];
+      updatedCartData[index].quantity = updatedCartData[index].quantity - 1;
+      return updatedCartData;
+    });
+  };
 
   return (
     <HStack>
-      <Button bg="whiteAlpha.800" borderColor="white" boxShadow="md">
+      <Button
+        bg="whiteAlpha.800"
+        borderColor="white"
+        boxShadow="md"
+        onClick={handleOnDecreaseQuantity}
+      >
         -
       </Button>
       <Input isReadOnly={true} value={item.quantity} />
