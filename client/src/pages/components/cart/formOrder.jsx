@@ -52,6 +52,7 @@ export default function FormOrder({
 
   const handleSubmitOrder = async () => {
     try {
+      const orders = cartData.map(({ file, ...rest }) => ({ ...rest }));
       const dataToUpload = new FormData();
       dataToUpload.append(
         "customerName",
@@ -71,10 +72,18 @@ export default function FormOrder({
       dataToUpload.append("customerPhoneNum", "+62" + personalInfo.phoneNumber);
       dataToUpload.append("totalOrder", totalOrder);
       dataToUpload.append("orderStatus", "Menunggu Pembayaran");
-      dataToUpload.append("orderItem", JSON.stringify(cartData));
+      dataToUpload.append("orderItem", JSON.stringify(orders));
+      cartData.forEach(({ file }, index) => {
+        dataToUpload.append(`image[]`, file);
+      });
       dataToUpload.append("deliveryOption", deliveryOption.courier);
 
-      const response = await post("/api/orders", dataToUpload);
+      //cartData => File[], OrderItem
+      const response = await post(
+        "/api/orders",
+        dataToUpload,
+        "MULTIPART_FORM_DATA"
+      );
 
       setFormData({
         personalInfo: {},

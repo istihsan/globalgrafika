@@ -11,7 +11,7 @@ const cors = require("cors");
 const multer = require("multer");
 const uploads = multer();
 
-const { Storage } = require("@google-cloud/storage");
+// const { Storage } = require("@google-cloud/storage");
 
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
@@ -19,30 +19,30 @@ db.once("open", () => {
 });
 
 app.use(express.json());
-// app.use(uploads.array());
-// app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+// app.use(multer());
 
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
 
-const storage = new Storage({
-  projectId: "big-oxygen-413514",
-  keyFilename: "big-oxygen-413514-63f58993c739.json"
-});
+// const storage = new Storage({
+//   projectId: "big-oxygen-413514",
+//   keyFilename: "big-oxygen-413514-63f58993c739.json"
+// });
 
-const bucket = storage.bucket("globalgrafikabucket");
+// const bucket = storage.bucket("globalgrafikabucket");
 
-const storageMulter = multer.memoryStorage(); // or any other storage strategy as needed
+// const storageMulter = multer.memoryStorage();
 
-const upload = multer({
-  storage: storageMulter,
-  limits: {
-    fileSize: 50 * 1024 * 1024 // 50 MB limit
-  }
-});
+// const upload = multer({
+//   storage: storageMulter,
+//   limits: {
+//     fileSize: 50 * 1024 * 1024
+//   }
+// });
 
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);

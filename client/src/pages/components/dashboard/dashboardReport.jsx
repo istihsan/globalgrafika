@@ -13,7 +13,8 @@ import {
   MenuButton,
   Button,
   MenuList,
-  MenuItem
+  MenuItem,
+  Link
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { get } from "../../../utils/request";
@@ -69,17 +70,15 @@ const DashboardReport = () => {
 
   const handleSort = field => {
     if (sortBy === field) {
-      // Toggle the sort order if clicking on the same field
       setSortOrder(sortOrder === "asc" ? "desc" : "asc");
     } else {
-      // Set a new field for sorting
       setSortBy(field);
       setSortOrder("asc");
     }
   };
 
   return (
-    <Center>
+    <Center pb={4}>
       <Box
         p={4}
         borderWidth="2px"
@@ -110,16 +109,22 @@ const DashboardReport = () => {
         <Table variant="simple" size="sm" colorScheme="teal">
           <Thead>
             <Tr>
-              <Th>Total Order</Th>
+              <Th>Order ID</Th>
               <Th>Customer Name</Th>
+              <Th>Total Order</Th>
               <Th>Order Item</Th>
             </Tr>
           </Thead>
           <Tbody>
             {filteredOrders.map(order => (
               <Tr key={order._id}>
-                <Td>{currencyFormatter(order.totalOrder)}</Td>
+                <Td textTransform="uppercase">
+                  <Link href={`/dashboard/detailorder/${order._id.toString()}`}>
+                    {order._id}
+                  </Link>
+                </Td>
                 <Td>{order.customerName}</Td>
+                <Td>{currencyFormatter(order.totalOrder)}</Td>
                 <Td>
                   {order.orderItem.map(item => (
                     <p key={item._id}>

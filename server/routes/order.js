@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const multerGoogleStorage = require("multer-google-storage");
+const { Storage } = require("@google-cloud/storage");
 const {
   createOrder,
   getOneOrder,
@@ -10,22 +10,72 @@ const {
   updateOrder
 } = require("../controllers/orderController");
 
-const upload = multer({
-  storage: multerGoogleStorage.storageEngine({
-    autoRetry: true,
-    bucket: "globalgrafikabucket",
-    projectId: "big-oxygen-413514",
-    keyFilename: "../server/big-oxygen-413514-63f58993c739.json",
-    fileName: (req, file, cb) => {
-      console.log("HALO");
-      cb(null, `/uploads/test1`);
-    }
-  })
+const storage = new Storage({
+  projectId: "big-oxygen-413514",
+  keyFilename: "../server/config.json"
+});
+
+// storage.getBuckets().then(x => console.log(x));
+const bucket = storage.bucket("globalgrafikabucket");
+
+var uploadHandler = multer({
+  storage: multer.memoryStorage(),
+  // storage: multer.diskStorage({
+  //   destination: function (req, file, cb) {
+  //     cb(null, "/");
+  //   },
+  //   filename: function (req, file, cb) {
+  //     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+  //     cb(null, file.fieldname + "-" + uniqueSuffix);
+  //   }
+  // }),
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  }
 });
 
 router.get("/", getAllOrder);
 router.get("/:id", getOneOrder);
-router.post("/", upload.single("file"), createOrder);
+router.post(
+  "/",
+  (req, res, next) => {
+    console.log(req.files, "SEBELUM");
+    next();
+  },
+  uploadHandler.array("image[]", 12),
+  (req, res, next) => {
+    // This is showing the req.file is being passed through
+    console.log(req.files, "SESUDAH");
+    if (!req.files || req.files.length === 0) {
+      return res.status(500).send("No files were uploaded.");
+    }
+    // const blob = bucket.file(req.file.originalname);
+    // const blobStream = blob.createWriteStream({
+    //   metadata: {
+    //     contentType: req.file.mimetype
+    //   },
+    //   resumable: false
+    // });
+    // // The err is not getting console logged even though it is not saving to the google cloud bucket properly?
+    // blobStream.on("error", err => {
+    //   next(err);
+    //   console.log(err);
+    //   return;
+    // });
+    // // The publicUrl is not getting console.logged - presumably cause something is breaking before this and it won't save it
+    // blobStream.on("finish", () => {
+    //   // the public url can be used to directly access the file via HTTP
+    //   const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+    //   console.log(publicUrl);
+    //   // Make the image public to the web (since we'll be displaying it in the browser)
+    //   blob.makePublic().then(() => {
+    //     res.status(200).send(`Success!\n Image uploaded to ${publicUrl}`);
+    //   });
+    // });
+    // blobStream.end();
+  },
+  createOrder
+);
 router.delete("/:id", deleteOrder);
 router.patch("/:id", updateOrder);
 
