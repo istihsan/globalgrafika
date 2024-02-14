@@ -52,7 +52,9 @@ export default function FormOrder({
 
   const handleSubmitOrder = async () => {
     try {
-      const orders = cartData.map(({ file, ...rest }) => ({ ...rest }));
+      const orders = cartData.map(({ file, title, variant, ...rest }) => ({
+        ...rest
+      }));
       const dataToUpload = new FormData();
       dataToUpload.append(
         "customerName",
