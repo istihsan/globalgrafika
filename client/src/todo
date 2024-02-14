@@ -19,10 +19,10 @@ Client Related To Do:
 // dashboardTableProduct page (tinggal delete aja)
 // dashboardReport comp (sorting)
 dashboardDetailOrder (kayanya samain aja kaya invoice page + status order)
-setState buat form
+// setState buat form
 // set handler buat delete file sama add quantity
 // show the blob on the cart (kadang muncul kadang ga apalagi kalo udah direfresh gamungkin muncul)
-create new admin (tapi kayanya belom butuh)
+// create new admin (tapi kayanya belom butuh)
 
 prettier loading (kalo gabut aja)
 

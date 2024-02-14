@@ -52,8 +52,9 @@ export default function FormOrder({
 
   const handleSubmitOrder = async () => {
     try {
-      const orders = cartData.map(({ file, title, variant, ...rest }) => ({
-        ...rest
+      const orders = cartData.map(({ file, ...rest }, index) => ({
+        ...rest,
+        fileIndex: file ? index : null
       }));
       const dataToUpload = new FormData();
       dataToUpload.append(
@@ -75,8 +76,10 @@ export default function FormOrder({
       dataToUpload.append("totalOrder", totalOrder);
       dataToUpload.append("orderStatus", "Menunggu Pembayaran");
       dataToUpload.append("orderItem", JSON.stringify(orders));
-      cartData.forEach(({ file }, index) => {
-        dataToUpload.append(`image[]`, file);
+      cartData.forEach(({ file }) => {
+        if (file) {
+          dataToUpload.append(`image[]`, file);
+        }
       });
       dataToUpload.append("deliveryOption", deliveryOption.courier);
 

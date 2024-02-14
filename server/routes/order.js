@@ -30,48 +30,48 @@ router.get("/:id", getOneOrder);
 router.post(
   "/",
   uploadHandler.array(`image[]`, 12),
-  (req, res, next) => {
-    console.log(req.body, req.files);
-    if (!req.files || req.files.length === 0) {
-      return res.status(500).send("No files were uploaded.");
-    }
+  // (req, res, next) => {
+  //   console.log(req.body, req.files);
+  //   if (!req.files || req.files.length === 0) {
+  //     return res.status(500).send("No files were uploaded.");
+  //   }
 
-    const promises = req.files.map(({ originalname, mimetype, buffer }) => {
-      const blob = bucket.file(`${originalname}_${Date.now()}`);
-      const blobStream = blob.createWriteStream({
-        metadata: {
-          contentType: mimetype
-        },
-        resumable: false
-      });
+  //   const promises = req.files.map(({ originalname, mimetype, buffer }) => {
+  //     const blob = bucket.file(`${originalname}_${Date.now()}`);
+  //     const blobStream = blob.createWriteStream({
+  //       metadata: {
+  //         contentType: mimetype
+  //       },
+  //       resumable: false
+  //     });
 
-      return new Promise((resolve, reject) => {
-        blobStream.on("error", err => {
-          reject(err);
-        });
+  //     return new Promise((resolve, reject) => {
+  //       blobStream.on("error", err => {
+  //         reject(err);
+  //       });
 
-        blobStream.on("finish", () => {
-          const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
-          console.log(publicUrl);
-          blob.makePublic().then(() => {
-            resolve(publicUrl);
-          });
-        });
+  //       blobStream.on("finish", () => {
+  //         const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+  //         console.log(publicUrl);
+  //         blob.makePublic().then(() => {
+  //           resolve(publicUrl);
+  //         });
+  //       });
 
-        blobStream.end(buffer);
-      });
-    });
+  //       blobStream.end(buffer);
+  //     });
+  //   });
 
-    Promise.all(promises)
-      .then(publicUrls => {
-        console.log("All files uploaded successfully:", publicUrls);
-        next();
-      })
-      .catch(err => {
-        console.error("Error uploading files:", err);
-        next(err);
-      });
-  },
+  //   Promise.all(promises)
+  //     .then(publicUrls => {
+  //       console.log("All files uploaded successfully:", publicUrls);
+  //       next();
+  //     })
+  //     .catch(err => {
+  //       console.error("Error uploading files:", err);
+  //       next(err);
+  //     });
+  // },
   // (req, res, next) => {
   //   // This is showing the req.file is being passed through
   //   console.log(req.files, "SESUDAH");
