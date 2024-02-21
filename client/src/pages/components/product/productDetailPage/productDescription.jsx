@@ -192,7 +192,7 @@ export default function ProductDescription() {
                   color: "gray.50"
                 }}
               >
-                Upload Referensi / Special Request
+                Special Request
               </FormLabel>
               <FormControl mr="5%">
                 <Input

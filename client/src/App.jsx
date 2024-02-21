@@ -19,6 +19,7 @@ import ProductDetail from "./pages/components/product/productDetailPage/productD
 import Checkout from "./pages/components/cart/checkout";
 import PrivateRoute from "./privateRoute";
 import DashboardDetailProduct from "./pages/components/dashboard/dashboardDetailProduct";
+import DashboardDetailOrder from "./pages/components/dashboard/dashboardDetailOrder";
 import DashboardOrder from "./pages/dashboardOrder";
 import DashboardProduct from "./pages/dashboardProduct";
 import Invoice from "./pages/invoice";
@@ -45,7 +46,7 @@ function App() {
           />
           <Route
             path="/dashboard/detailorder/:id"
-            element={<DashboardDetailProduct />}
+            element={<DashboardDetailOrder />}
           />
           <Route exact path="/aboutus" element={<AboutUs />} />
           <Route exact path="/contactus" element={<ContactUs />} />

@@ -49,7 +49,10 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     setCartData(prevCartData =>
-      prevCartData.map(item => ({ ...item, file: null }))
+      prevCartData.map(item => ({
+        ...item,
+        file: null
+      }))
     );
   }, []);
 
@@ -79,7 +82,7 @@ const ShoppingCart = () => {
     }
   };
 
-  console.log(cartData, "=============");
+  console.log(cartData);
   return (
     <>
       <SimpleGrid columns={2} bgColor={"blackAlpha.100"}>
@@ -90,7 +93,6 @@ const ShoppingCart = () => {
           <VStack m={5}>
             {cartData.map((item, index) => {
               const hasImage = item.file;
-              console.log(index, hasImage, "=========");
               return (
                 <Box key={index} minW="95vh" m={"2.5%"}>
                   <Card
@@ -338,17 +340,28 @@ const ShoppingCart = () => {
 };
 
 function QuantityInput({ item, index, setCartData }) {
+  // const handleOnAddQuantity = () => {
+  //   setCartData(_cartData => {
+  //     const updatedCartData = [..._cartData];
+  //     updatedCartData[index].quantity += 1;
+  //     return updatedCartData;
+  //   });
+  // };
   const handleOnAddQuantity = () => {
     setCartData(_cartData => {
       const updatedCartData = [..._cartData];
-      updatedCartData[index].quantity = updatedCartData[index].quantity + 1;
+      const currentQuantity =
+        typeof updatedCartData[index].quantity === "number"
+          ? updatedCartData[index].quantity
+          : 0;
+      updatedCartData[index].quantity = currentQuantity + 1;
       return updatedCartData;
     });
   };
   const handleOnDecreaseQuantity = () => {
     setCartData(_cartData => {
       const updatedCartData = [..._cartData];
-      updatedCartData[index].quantity = updatedCartData[index].quantity - 1;
+      updatedCartData[index].quantity -= 1;
       return updatedCartData;
     });
   };

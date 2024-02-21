@@ -1,11 +1,10 @@
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
-import { get } from "../utils/request";
+import { get, patch } from "../../../utils/request";
 import {
   Flex,
   Box,
   chakra,
-  HStack,
   Card,
   VStack,
   Icon,
@@ -14,23 +13,31 @@ import {
   Button,
   Center,
   Tag,
-  Link
+  Select,
+  Spacer,
+  Input,
+  Text
 } from "@chakra-ui/react";
 import {
-  MdHeadset,
   MdLocationOn,
   MdEmail,
   MdLocalPhone,
-  MdAlarm
+  MdAlarm,
+  MdDoNotDisturbAlt
 } from "react-icons/md";
+import { useToast } from "../../../hooks/useToast";
 import DashboardNav from "./dashboardNav";
-import Footer from "./components/common/footer";
+import DashboardStats from "./dashboardStats";
 
 const Invoice = () => {
   const [order, setOrder] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [selectedStatus, setSelectedStatus] = useState("");
+  const [cancellationReason, setCancellationReason] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
   const params = useParams();
+  const { successToast } = useToast();
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -38,7 +45,7 @@ const Invoice = () => {
       try {
         const fetchedOrder = await get(`/api/orders/${params.id}`);
         setOrder(fetchedOrder);
-        console.log(fetchedOrder);
+        setSelectedStatus(fetchedOrder.orderStatus || "");
       } catch (error) {
         setError(error);
       } finally {
@@ -47,10 +54,41 @@ const Invoice = () => {
     };
 
     fetchOrder();
-  }, []);
+  }, [params.id]);
+
+  const handleStatusChange = event => {
+    setSelectedStatus(event.target.value);
+  };
+
+  const handleCancellationReasonChange = event => {
+    setCancellationReason(event.target.value);
+  };
+
+  const handleTextClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleInputBlur = () => {
+    setIsEditing(false);
+  };
+
+  const handleSaveChanges = async () => {
+    try {
+      await patch(`/api/orders/${params.id}`, {
+        orderStatus: selectedStatus,
+        cancellationReason: cancellationReason
+      });
+      const updatedOrder = await get(`/api/orders/${params.id}`);
+      successToast("Pesanan Berhasil di Update");
+      setOrder(updatedOrder);
+    } catch (error) {
+      console.error("Error updating order status", error);
+    }
+  };
   return (
     <>
-      <NavBar />
+      <DashboardNav />
+      <DashboardStats />
       <Center>
         <Tag
           mt={3}
@@ -62,7 +100,7 @@ const Invoice = () => {
           variant={"subtle"}
           colorScheme="blue"
         >
-          Your Order Number: {order._id}
+          Order Number: {order._id}
         </Tag>
       </Center>
       <Flex alignItems="center" justifyContent="center" minHeight="61vh">
@@ -76,9 +114,9 @@ const Invoice = () => {
                   <VStack align="stretch">
                     {order.orderItem.map(orderItem => (
                       <Card key={orderItem._id} minW="50%" my={3}>
-                        <Flex pr={4} w="50%">
+                        <Flex pr={4} w="100%">
                           <Box
-                            w={1 / 3}
+                            minW="20%"
                             bgSize="inherit"
                             style={{
                               backgroundImage: `url(${orderItem.productImageUrl})`,
@@ -87,7 +125,7 @@ const Invoice = () => {
                               backgroundPosition: "center"
                             }}
                           ></Box>
-                          <Box w={2 / 3} p={{ base: 4, md: 4 }}>
+                          <Box maxW="40%" p={{ base: 4, md: 4 }}>
                             <chakra.h1
                               fontSize="2xl"
                               fontWeight="bold"
@@ -133,6 +171,23 @@ const Invoice = () => {
                               ""
                             )}
                           </Box>
+                          <Spacer />
+                          {orderItem.referenceFile ? (
+                            <Box
+                              maxH="100%"
+                              minW="20%"
+                              borderRadius="lg"
+                              p={4}
+                              style={{
+                                backgroundImage: `url(${orderItem.referenceFile})`,
+                                backgroundSize: "contain",
+                                backgroundRepeat: "no-repeat",
+                                backgroundPosition: "center"
+                              }}
+                            />
+                          ) : (
+                            ""
+                          )}
                         </Flex>
                       </Card>
                     ))}
@@ -157,15 +212,32 @@ const Invoice = () => {
                 >
                   <Flex alignItems="center" px={6} py={3} bg="gray.900">
                     <Icon as={MdAlarm} h={6} w={6} color="white" />
-
-                    <chakra.h1
-                      mx={3}
+                    <Select
+                      variant="filled"
+                      focusBorderColor="gray.900"
+                      bg="gray.900"
+                      sx={{
+                        "> option": {
+                          background: "black",
+                          color: "white"
+                        }
+                      }}
                       color="white"
                       fontWeight="bold"
                       fontSize="lg"
+                      _hover={{ bg: "gray.700" }}
+                      defaultValue={selectedStatus}
+                      value={selectedStatus}
+                      onChange={handleStatusChange}
                     >
-                      {order.orderStatus}
-                    </chakra.h1>
+                      <option value="Dibatalkan">Dibatalkan</option>
+                      <option value="Menunggu Pembayaran">
+                        Menunggu Pembayaran
+                      </option>
+                      <option value="Dalam Proses">Dalam Proses</option>
+                      <option value="Telah Dikirim">Telah Dikirim</option>
+                      <option value="Selesai">Selesai</option>
+                    </Select>
                   </Flex>
 
                   <Box py={4} px={6}>
@@ -179,6 +251,38 @@ const Invoice = () => {
                     >
                       {order.customerName}
                     </chakra.h1>
+
+                    {selectedStatus === "Dibatalkan" ? (
+                      <Flex
+                        alignItems="center"
+                        mt={4}
+                        color="gray.700"
+                        _dark={{
+                          color: "gray.200"
+                        }}
+                      >
+                        <Icon
+                          as={MdDoNotDisturbAlt}
+                          h={6}
+                          w={6}
+                          mr={2}
+                          onClick={handleTextClick}
+                        />
+                        {isEditing || order.cancellationReason === "" ? (
+                          <Input
+                            placeholder={order.cancellationReason}
+                            value={cancellationReason}
+                            onChange={handleCancellationReasonChange}
+                            onBlur={handleInputBlur}
+                            textTransform="capitalize"
+                          />
+                        ) : (
+                          <Text px={2}>{order.cancellationReason}</Text>
+                        )}
+                      </Flex>
+                    ) : (
+                      ""
+                    )}
 
                     <Flex
                       alignItems="center"
@@ -228,20 +332,18 @@ const Invoice = () => {
               </Flex>
               <Center>
                 <Button
-                  as={Link}
+                  onClick={handleSaveChanges}
                   href="/contactus"
                   colorScheme="blue"
                   variant="outline"
                 >
-                  Contact Us
+                  Save Changes
                 </Button>
               </Center>
             </GridItem>
           </Grid>
         </Box>
       </Flex>
-
-      <Footer />
     </>
   );
 };

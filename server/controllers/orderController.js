@@ -160,6 +160,22 @@ const createOrder = async (req, res) => {
     };
 
     const orders = await Order.create(orderData);
+
+    for (const item of fileData) {
+      const product = await Product.findOne({ title: item.title });
+
+      if (!product) {
+        return res
+          .status(404)
+          .json({ message: `Product not found: ${item.title}` });
+      }
+
+      // Update stock
+      product.stock -= item.quantity;
+
+      // Save the updated product
+      await product.save();
+    }
     res.status(200).json(orders);
   } catch (error) {
     console.error(error);

@@ -5,7 +5,7 @@ import {
   Flex,
   Box,
   chakra,
-  HStack,
+  Text,
   Card,
   VStack,
   Icon,
@@ -14,10 +14,11 @@ import {
   Button,
   Center,
   Tag,
-  Link
+  Link,
+  Spacer
 } from "@chakra-ui/react";
 import {
-  MdHeadset,
+  MdDoNotDisturbAlt,
   MdLocationOn,
   MdEmail,
   MdLocalPhone,
@@ -47,7 +48,7 @@ const Invoice = () => {
     };
 
     fetchOrder();
-  }, []);
+  }, [params.id]);
   return (
     <>
       <NavBar />
@@ -133,6 +134,17 @@ const Invoice = () => {
                               ""
                             )}
                           </Box>
+                          <Spacer />
+                          <Box
+                            w={1 / 3}
+                            bgSize="contain"
+                            style={{
+                              backgroundImage: `url(${orderItem.referenceFile})`,
+                              backgroundSize: "cover",
+                              backgroundRepeat: "no-repeat",
+                              backgroundPosition: "center"
+                            }}
+                          />
                         </Flex>
                       </Card>
                     ))}
@@ -170,6 +182,7 @@ const Invoice = () => {
 
                   <Box py={4} px={6}>
                     <chakra.h1
+                      textTransform="capitalize"
                       fontSize="xl"
                       fontWeight="bold"
                       color="gray.800"
@@ -180,6 +193,21 @@ const Invoice = () => {
                       {order.customerName}
                     </chakra.h1>
 
+                    {order.orderStatus === "Dibatalkan" ? (
+                      <Flex
+                        alignItems="center"
+                        mt={4}
+                        color="gray.700"
+                        _dark={{
+                          color: "gray.200"
+                        }}
+                      >
+                        <Icon as={MdDoNotDisturbAlt} h={6} w={6} mr={2} />
+                        <Text px={2}>{order.cancellationReason}</Text>
+                      </Flex>
+                    ) : (
+                      ""
+                    )}
                     <Flex
                       alignItems="center"
                       mt={4}

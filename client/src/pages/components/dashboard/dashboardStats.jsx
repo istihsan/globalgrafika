@@ -120,7 +120,7 @@ export default function DashboardStats() {
             </Card>
             <Card>
               <CardHeader>
-                <Heading size="md"> Customer dashboard</Heading>
+                <Heading size="md">Most Sold Product</Heading>
               </CardHeader>
               <CardBody>
                 <Text>{statistics.mostSoldProduct}</Text>

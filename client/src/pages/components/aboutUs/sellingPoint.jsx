@@ -57,9 +57,11 @@ const SellingPoint = () => {
                 md: "lg"
               }}
             >
-              Handle your subscriptions and transactions efficiently with the
-              clear overview in Dashboard. Features like the smart search option
-              allow you to quickly find any data you’re looking for.
+              We pride ourselves on delivering unrivaled quality in every
+              brochure, signage, and print product we create. Our cutting-edge
+              digital printing technology ensures sharp, vibrant, and
+              true-to-life reproductions that captivate and leave a lasting
+              impression.
             </chakra.p>
           </Box>
           <Image
@@ -133,9 +135,12 @@ const SellingPoint = () => {
                 md: "lg"
               }}
             >
-              Love to code? Next to our ready-made and free plugins you can use
-              our expansive yet simple API; decide how you integrate Payments
-              and build advanced and reliable products yourself from scratch.
+              Our skilled designers, meticulous craftsmen, and dedicated
+              customer service representatives work in harmony to transform your
+              vision into a masterpiece. When you choose our digital printing
+              store, you're not just purchasing products; you're investing in a
+              commitment to excellence and the assurance that your print
+              materials will stand out in terms of quality and professionalism.
             </chakra.p>
           </Box>
           <Image
