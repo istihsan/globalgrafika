@@ -1,4 +1,5 @@
 const Order = require("../models/orderModel");
+const Product = require("../models/productModel");
 const mongoose = require("mongoose");
 const { Storage } = require("@google-cloud/storage");
 
@@ -107,7 +108,6 @@ const getOneOrder = async (req, res) => {
 };
 
 const createOrder = async (req, res) => {
- 
   try {
     let counter = 0;
     let fileUrls = [];
@@ -165,10 +165,8 @@ const createOrder = async (req, res) => {
           .json({ message: `Product not found: ${item.title}` });
       }
 
-  
       product.stock -= item.quantity;
 
-     
       await product.save();
     }
     res.status(200).json(orders);
