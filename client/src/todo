@@ -39,15 +39,15 @@ KURANGIN SESUAI QUANTITY
 Penulisan Related To Do:
 Deskripsi Fitur :
 (User/Pembeli)
-Melakukan Pembelian
-Mengecek/Melacak Pesanan
+// Melakukan Pembelian
+// Mengecek/Melacak Pesanan
 (Admin)
-Login
-Pengecekan Order
-Cancel Order
-Input Produk
-Pengecekan Produk
-Edit Produk
+// Login
+// Pengecekan Order
+// Cancel Order
+// Input Produk
+// Pengecekan Produk
+// Edit Produk
 (Owner)
 Laporan Penjualan
 

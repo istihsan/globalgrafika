@@ -107,7 +107,7 @@ const getOneOrder = async (req, res) => {
 };
 
 const createOrder = async (req, res) => {
-  // console.log(req.body.orderItem);
+ 
   try {
     let counter = 0;
     let fileUrls = [];
@@ -140,11 +140,6 @@ const createOrder = async (req, res) => {
       }
     );
     console.log(fileData);
-    // const orderItems = parsedOrderItem.map(item => {
-    //   console.log({ index: item.fileIndex, url: newItem.referenceFile });
-    //   // console.log(newItem.referenceFile, "INI Link");
-    //   return newItem;
-    // });
 
     const orderData = {
       customerName: req.body.customerName,
@@ -170,10 +165,10 @@ const createOrder = async (req, res) => {
           .json({ message: `Product not found: ${item.title}` });
       }
 
-      // Update stock
+  
       product.stock -= item.quantity;
 
-      // Save the updated product
+     
       await product.save();
     }
     res.status(200).json(orders);
