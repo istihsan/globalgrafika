@@ -4,56 +4,98 @@ import FormPersonalInfo from "./formPersonalInfo";
 import FormAddressInfo from "./formAddressInfo";
 import FormDeliveryOption from "./formDeliveryOption";
 import { post } from "../../../utils/request";
+import { useNavigate } from "react-router-dom";
 
 import { useToast } from "@chakra-ui/react";
 
 export default function FormOrder({
   cartData,
   setCartData,
-  formData,
+  formData: initialFormData = {},
   setFormData,
   totalOrder
 }) {
   const toast = useToast();
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
+  const navigate = useNavigate();
+  const [personalInfo, setPersonalInfo] = useState(
+    initialFormData.personalInfo || {}
+  );
+  const [addressInfo, setAddressInfo] = useState(
+    initialFormData.addressInfo || {}
+  );
+  const [deliveryOption, setDeliveryOption] = useState(
+    initialFormData.deliveryOption || {}
+  );
+
+  const handlePersonalInfoChange = (field, value) => {
+    setPersonalInfo(prevData => ({
+      ...prevData,
+      [field]: value
+    }));
+  };
+
+  const handleAddressInfoChange = (field, value) => {
+    setAddressInfo(prevData => ({
+      ...prevData,
+      [field]: value
+    }));
+  };
+
+  const handleDeliveryOptionChange = (field, value) => {
+    setDeliveryOption(prevData => ({
+      ...prevData,
+      [field]: value
+    }));
+  };
 
   const handleSubmitOrder = async () => {
     try {
-      const combinedData = {
-        customerName:
-          formData.personalInfo.firstName +
-          " " +
-          formData.personalInfo.lastName,
-        customerAddress:
-          formData.addressInfo.streetAddress +
+      const orders = cartData.map(({ file, ...rest }, index) => ({
+        ...rest,
+        fileIndex: file ? index : null
+      }));
+      const dataToUpload = new FormData();
+      dataToUpload.append(
+        "customerName",
+        personalInfo.firstName + " " + personalInfo.lastName
+      );
+      dataToUpload.append(
+        "customerAddress",
+        addressInfo.streetAddress +
           ", " +
-          formData.addressInfo.city +
+          addressInfo.city +
           ", " +
-          formData.addressInfo.subdistrict +
+          addressInfo.subdistrict +
           ", " +
-          formData.addressInfo.postalCode,
-        customerEmailAddress: formData.personalInfo.email,
-        customerPhoneNum: formData.personalInfo.phoneNumber,
-        totalOrder: totalOrder,
-        orderItem: cartData.map(item => ({
-          title: item.title,
-          productVariant: item.productVariant,
-          quantity: item.quantity,
-          unit: item.unit,
-          price: item.price
-        })),
-        deliveryOption: formData.deliveryOption.courier
-      };
+          addressInfo.postalCode
+      );
+      dataToUpload.append("customerEmailAddress", personalInfo.email);
+      dataToUpload.append("customerPhoneNum", "+62" + personalInfo.phoneNumber);
+      dataToUpload.append("totalOrder", totalOrder);
+      dataToUpload.append("orderStatus", "Menunggu Pembayaran");
+      dataToUpload.append("orderItem", JSON.stringify(orders));
+      cartData.forEach(({ file }) => {
+        if (file) {
+          dataToUpload.append(`image[]`, file);
+        }
+      });
+      dataToUpload.append("deliveryOption", deliveryOption.courier);
 
-      await post("/api/orders", combinedData);
+      //cartData => File[], OrderItem
+      const response = await post(
+        "/api/orders",
+        dataToUpload,
+        "MULTIPART_FORM_DATA"
+      );
 
       setFormData({
         personalInfo: {},
         addressInfo: {},
         deliveryOption: {}
       });
-      setCartData([]);
+      // setCartData([]);
 
       toast({
         title: "Order created.",
@@ -62,6 +104,12 @@ export default function FormOrder({
         duration: 3000,
         isClosable: true
       });
+      if (response && response._id) {
+        const orderId = response._id.toString();
+        navigate(`/invoice/${orderId}`);
+      } else {
+        console.error("Order ID not found in the response:", response);
+      }
     } catch (error) {
       console.error("Error submitting order:", error);
       toast({
@@ -95,11 +143,20 @@ export default function FormOrder({
           isAnimated
         ></Progress>
         {step === 1 ? (
-          <FormPersonalInfo formData={formData} setFormData={setFormData} />
+          <FormPersonalInfo
+            formData={personalInfo}
+            handleInputChange={handlePersonalInfoChange}
+          />
         ) : step === 2 ? (
-          <FormAddressInfo formData={formData} setFormData={setFormData} />
+          <FormAddressInfo
+            formData={addressInfo}
+            handleInputChange={handleAddressInfoChange}
+          />
         ) : (
-          <FormDeliveryOption formData={formData} setFormData={setFormData} />
+          <FormDeliveryOption
+            formData={deliveryOption}
+            handleInputChange={handleDeliveryOptionChange}
+          />
         )}
         <ButtonGroup mt="5%" w="100vw">
           <Flex w="100vw" justifyContent="space-between">

@@ -7,16 +7,7 @@ import {
   Select
 } from "@chakra-ui/react";
 
-export default function FormAddressInfo({ formData, setFormData }) {
-  const handleInputChange = (field, value) => {
-    setFormData(prevData => ({
-      ...prevData,
-      addressInfo: {
-        ...prevData.addressInfo,
-        [field]: value
-      }
-    }));
-  };
+export default function FormAddressInfo({ formData, handleInputChange }) {
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
@@ -44,6 +35,7 @@ export default function FormAddressInfo({ formData, setFormData }) {
           w="full"
           rounded="md"
           onChange={e => handleInputChange("region", e.target.value)}
+          value={formData.region || ""}
         >
           <option>Jabodetabek</option>
           <option>Banten</option>
@@ -78,6 +70,7 @@ export default function FormAddressInfo({ formData, setFormData }) {
           w="full"
           rounded="md"
           onChange={e => handleInputChange("streetAddress", e.target.value)}
+          value={formData.streetAddress || ""}
         />
       </FormControl>
 
@@ -105,6 +98,7 @@ export default function FormAddressInfo({ formData, setFormData }) {
           w="full"
           rounded="md"
           onChange={e => handleInputChange("city", e.target.value)}
+          value={formData.city || ""}
         />
       </FormControl>
 
@@ -132,6 +126,7 @@ export default function FormAddressInfo({ formData, setFormData }) {
           w="full"
           rounded="md"
           onChange={e => handleInputChange("subdistrict", e.target.value)}
+          value={formData.subdistrict || ""}
         />
       </FormControl>
 
@@ -159,6 +154,7 @@ export default function FormAddressInfo({ formData, setFormData }) {
           w="full"
           rounded="md"
           onChange={e => handleInputChange("postalCode", e.target.value)}
+          value={formData.postalCode || ""}
         />
       </FormControl>
     </>

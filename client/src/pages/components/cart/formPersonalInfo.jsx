@@ -9,16 +9,7 @@ import {
   FormHelperText
 } from "@chakra-ui/react";
 
-export default function FormPersonalInfo({ formData, setFormData }) {
-  const handleInputChange = (field, value) => {
-    setFormData(prevData => ({
-      ...prevData,
-      personalInfo: {
-        ...prevData.personalInfo,
-        [field]: value
-      }
-    }));
-  };
+export default function FormPersonalInfo({ formData, handleInputChange }) {
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
@@ -31,6 +22,7 @@ export default function FormPersonalInfo({ formData, setFormData }) {
             id="first-name"
             placeholder="First name"
             onChange={e => handleInputChange("firstName", e.target.value)}
+            value={formData.firstName || ""}
           />
         </FormControl>
 
@@ -40,6 +32,7 @@ export default function FormPersonalInfo({ formData, setFormData }) {
             id="last-name"
             placeholder="Last name"
             onChange={e => handleInputChange("lastName", e.target.value)}
+            value={formData.lastName || ""}
           />
         </FormControl>
       </Flex>
@@ -50,6 +43,7 @@ export default function FormPersonalInfo({ formData, setFormData }) {
           type="email"
           placeholder="istihsan@gmail.com"
           onChange={e => handleInputChange("email", e.target.value)}
+          value={formData.email || ""}
         />
         <FormHelperText>We&apos;ll never share your email.</FormHelperText>
       </FormControl>
@@ -82,6 +76,7 @@ export default function FormPersonalInfo({ formData, setFormData }) {
             focusBorderColor="brand.400"
             rounded="md"
             onChange={e => handleInputChange("phoneNumber", e.target.value)}
+            value={formData.phoneNumber || ""}
           />
         </InputGroup>
       </FormControl>

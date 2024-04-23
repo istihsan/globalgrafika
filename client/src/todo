@@ -12,39 +12,46 @@ Client Related To Do:
 // local storage always emptied when entering page detailproduk buat cart (useEffect Product Desc)
 // checkout recap (total, ongkir, dkk di shoppingcart.jsx)
 // Order POST (belom masuk cartnya)
-invoice page
-dashboardOrder+dashboardTableProduct page (tinggal delete aja)
-prettier loading (kalo gabut aja)
-masih ada bug kalo langsung ke masukkin ke keranjang defaultValuenya small bahkan small aja gaada
+// invoice page
+// customerNotes on description page and cart
+// track order
+// Masih ada bug kalo langsung ke masukkin ke keranjang defaultValuenya small bahkan small aja gaada
+// dashboardTableProduct page (tinggal delete aja)
+// dashboardReport comp (sorting)
+// dashboardDetailOrder (kayanya samain aja kaya invoice page + status order) (tinggal tambahin cancellation reason kalo dibatalin ) 
+// setState buat form
+// set handler buat delete file sama add quantity
+// show the blob on the cart (kadang muncul kadang ga apalagi kalo udah direfresh gamungkin muncul)
+// create new admin (tapi kayanya belom butuh)
+// quantity shoppingcart kalo tambah nambah"1" bukan nambah 1 cuma error kalo dimulai di 1 
+add condition buat form form 
+download
 
+prettier loading (kalo gabut aja)
 
 Server Related To Do:
 // Order endpoint and recheck schema
 // Enum quantity unit dan terhubung (pcs/m2)
 // Enum api pilihan courier
-kalo large harganya beda (error pas saat masukkin ke product variantnya munculnya [object object])
+// kalo large harganya beda (error pas saat masukkin ke product variantnya munculnya [object object])
+KURANGIN SESUAI QUANTITY
 
-
-Penulisan Related To Do: 
-Deskripsi Fitur : 
+Penulisan Related To Do:
+Deskripsi Fitur :
 (User/Pembeli)
-Melakukan Pembelian
-Mengecek/Melacak Pesanan
+// Melakukan Pembelian
+// Mengecek/Melacak Pesanan
 (Admin)
-Login
-Pengecekan Order
-Cancel Order
-Input Produk
-Pengecekan Produk
-Edit Produk
+// Login
+// Pengecekan Order
+// Cancel Order
+// Input Produk
+// Pengecekan Produk
+// Edit Produk
 (Owner)
 Laporan Penjualan
 
 Products Schema + variant type [string]
-
-
-
-
 
 Jangan Lupa Indent, SSH Keys
 Host github.com
@@ -52,19 +59,11 @@ AddKeysToAgent yes
 UseKeychain yes
 IdentityFile ~/.ssh/id_ed25519_github
 
-
-
-
 {
-   "trailingComma": "none",
-   "arrowParens": "avoid",
-   "endOfLine": "auto"
-   }
-
-
-
-
-
+"trailingComma": "none",
+"arrowParens": "avoid",
+"endOfLine": "auto"
+}
 
 NOTES
 
@@ -136,8 +135,6 @@ return
 // handle pembelian barang
 Irshadi Bagasputro11:35 PM
 res(500).({message: "Stock barang tidak cukup "})
-
-
 
 main material stock array product
 

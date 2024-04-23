@@ -5,23 +5,23 @@ const orderSchema = new Schema(
   {
     customerName: {
       type: String,
-      required: true
+      required: false
     },
     customerAddress: {
       type: String,
-      required: true
+      required: false
     },
     customerEmailAddress: {
       type: String,
-      required: true
+      required: false
     },
     customerPhoneNum: {
       type: Number,
-      required: true
+      required: false
     },
     totalOrder: {
       type: Number,
-      required: true
+      required: false
     },
     externalPaymentid: {
       type: Number,
@@ -29,18 +29,25 @@ const orderSchema = new Schema(
     },
     orderStatus: {
       type: String,
-      enum: ["Gagal", "Dalam Proses", "Telah Dikirim", "Selesai"],
+      enum: [
+        "Dibatalkan",
+        "Menunggu Pembayaran",
+        "Dalam Proses",
+        "Telah Dikirim",
+        "Selesai"
+      ],
       required: false
     },
     orderItem: [
-      // Change to an array of objects for order items
       {
-        title: { type: String, required: true },
+        title: { type: String, required: false },
         productVariant: { type: String },
-        quantity: { type: Number, required: true },
+        productImageUrl: { type: String, required: false },
+        quantity: { type: Number, required: false },
         unit: { type: String },
-        price: { type: Number, required: true }
-        // Add other fields if needed
+        customerNotes: { type: String, required: false },
+        price: { type: Number, required: false },
+        referenceFile: { type: String, required: false }
       }
     ],
     cancellationReason: {
@@ -50,7 +57,7 @@ const orderSchema = new Schema(
     deliveryOption: {
       type: String,
       enum: ["JNE", "Pos Indonesia", "SiCepat"],
-      required: true
+      required: false
     }
   },
   { timestamps: true }

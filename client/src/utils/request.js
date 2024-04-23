@@ -7,15 +7,24 @@ export const get = async url => {
   }
 };
 
-export const post = async (url, body) => {
+export const post = async (url, body, type) => {
+  const isMultipartFormData = type === "MULTIPART_FORM_DATA";
   try {
-    await fetch(url, {
+    const response = await fetch(url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(body)
+      body: body
+      // ...(isMultipartFormData ? body : { body }),
+      // headers: {
+      //   "Content-Type": isMultipartFormData
+      //     ? "multipart/form-data"
+      //     : "application/json"
+      // }
     });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    return response.json();
   } catch (error) {
     throw error;
   }
