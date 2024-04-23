@@ -20,7 +20,7 @@ const ProductCardDigitalPrintingSmall = () => {
     const fetchProducts = async () => {
       setIsLoading(true);
       try {
-        const result = await get("api/products");
+        const result = await get("/api/products");
         setProducts(result);
       } catch (error) {
         setError(error);

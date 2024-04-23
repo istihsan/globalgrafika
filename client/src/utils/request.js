@@ -1,7 +1,7 @@
 const BASE_URL = "https://globalgrafikabe.onrender.com";
 
 export const get = async endpoint => {
-  const url = `${BASE_URL}/${endpoint}`;
+  const url = `${BASE_URL}${endpoint}`;
   try {
     const response = await fetch(url);
     return await response.json();
