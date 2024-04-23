@@ -5,7 +5,7 @@ const { Storage } = require("@google-cloud/storage");
 
 const storage = new Storage({
   projectId: "big-oxygen-413514",
-  keyFilename: "config.json"
+  keyFilename: "../etc/secrets/config.json"
 });
 const bucket = storage.bucket("globalgrafikabucket");
 
