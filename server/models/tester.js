@@ -23,7 +23,6 @@ const testerSchema = new Schema({
 // const Product = mongoose.model("Product", {
 //   name: String,
 //   description: String,
-//   price: Number,
 // });
 
 module.exports = mongoose.model("Tester", testerSchema);
