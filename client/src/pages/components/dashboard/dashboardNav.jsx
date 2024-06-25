@@ -2,7 +2,7 @@ import React from "react";
 import {
   Box,
   Flex,
-  Text,
+  Link,
   Spacer,
   Avatar,
   IconButton,
@@ -25,7 +25,7 @@ const DashboardNav = () => {
           bgGradient={"linear(to-r,  #4a4a4a, #696969, #969493, #c9c8c7 )"}
           fontFamily={"Bebas Neue"}
         >
-          Global Grafika
+          <Link href="/">Global Grafika</Link>
         </Heading>
         <Spacer />
         <DashboardSidebar />

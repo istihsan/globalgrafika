@@ -225,6 +225,7 @@ const ShoppingCart = () => {
                           {hasImage && (
                             <Button
                               size="sm"
+                              maxW={'30vw'}
                               onClick={() => handleRemoveFile(index)}
                             >
                               Remove File
@@ -255,7 +256,7 @@ const ShoppingCart = () => {
                             border="1px"
                             rounded={"md"}
                             p="7px"
-                            ms="50%"
+                            ms="40%"
                             minW="23%"
                             position="absolute"
                           >
@@ -376,7 +377,7 @@ function QuantityInput({ item, index, setCartData }) {
       >
         -
       </Button>
-      <Input isReadOnly={true} value={item.quantity} />
+      <Input isReadOnly={true} value={item.quantity} maxWidth={'5vw'}/>
       <Button
         mr={5}
         bg="whiteAlpha.800"
