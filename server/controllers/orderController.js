@@ -1,10 +1,14 @@
 const Order = require("../models/orderModel");
+const Product = require("../models/productModel");
 const mongoose = require("mongoose");
 const { Storage } = require("@google-cloud/storage");
 
 const storage = new Storage({
   projectId: "big-oxygen-413514",
-  keyFilename: "config.json"
+  credentials: {
+    client_email: process.env.GOOGLE_CLIENT_EMAIL,
+    private_key: process.env.GOOGLE_PRIVATE_KEY
+  }
 });
 const bucket = storage.bucket("globalgrafikabucket");
 
@@ -107,7 +111,6 @@ const getOneOrder = async (req, res) => {
 };
 
 const createOrder = async (req, res) => {
- 
   try {
     let counter = 0;
     let fileUrls = [];
@@ -165,10 +168,8 @@ const createOrder = async (req, res) => {
           .json({ message: `Product not found: ${item.title}` });
       }
 
-  
       product.stock -= item.quantity;
 
-     
       await product.save();
     }
     res.status(200).json(orders);
