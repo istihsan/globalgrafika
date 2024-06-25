@@ -2,3 +2,5 @@ node_modules
 
 client/key
 client/key.pub
+server/config.json
+server/config.json

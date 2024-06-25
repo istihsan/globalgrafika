@@ -1,4 +1,7 @@
-export const get = async url => {
+const BASE_URL = "https://globalgrafikabe.onrender.com";
+
+export const get = async endpoint => {
+  const url = `${BASE_URL}${endpoint}`;
   try {
     const response = await fetch(url);
     return await response.json();
@@ -7,8 +10,9 @@ export const get = async url => {
   }
 };
 
-export const post = async (url, body, type) => {
+export const post = async (endpoint, body, type) => {
   const isMultipartFormData = type === "MULTIPART_FORM_DATA";
+  const url = `${BASE_URL}${endpoint}`;
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -30,7 +34,8 @@ export const post = async (url, body, type) => {
   }
 };
 
-export const del = async url => {
+export const del = async endpoint => {
+  const url = `${BASE_URL}${endpoint}`;
   try {
     await fetch(url, {
       method: "DELETE"
@@ -40,7 +45,8 @@ export const del = async url => {
   }
 };
 
-export const patch = async (url, body) => {
+export const patch = async (endpoint, body) => {
+  const url = `${BASE_URL}${endpoint}`;
   try {
     await fetch(url, {
       method: "PATCH",
@@ -54,7 +60,8 @@ export const patch = async (url, body) => {
   }
 };
 
-export const put = async (url, body) => {
+export const put = async (endpoint, body) => {
+  const url = `${BASE_URL}${endpoint}`;
   try {
     await fetch(url, {
       method: "PUT",

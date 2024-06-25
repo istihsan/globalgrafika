@@ -18,9 +18,13 @@ db.once("open", () => {
   console.log("Connected to the database");
 });
 
+const corsOptions = {
+  origin: "https://globalgrafikafe.onrender.com" // frontend URI (ReactJS)
+};
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors(corsOptions));
 // app.use(multer());
 
 app.use((req, res, next) => {
