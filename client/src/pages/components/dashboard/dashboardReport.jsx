@@ -29,7 +29,7 @@ const DashboardReport = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const orders = await get("api/orders/");
+        const orders = await get("/api/orders");
         setOrders(orders);
       } catch (error) {
         console.error("Error fetching orders:", error);
