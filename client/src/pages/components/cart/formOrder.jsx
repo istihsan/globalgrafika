@@ -128,7 +128,8 @@ export default function FormOrder({
         borderWidth="1px"
         rounded="lg"
         maxWidth={800}
-        maxHeight={step === 1 ? "55vh" : step === 2 ? "65vh" : "30vh"}
+        maxHeight={step === 1 ? "70vh" : step === 2 ? "80vh" : "37vh"}
+        minHeight={step === 1 ? "70vh" : step === 2 ? "80vh" : "37vh"}
         p={6}
         ml="10%"
         my="4%"
