@@ -56,12 +56,13 @@ const ProductCardHome = () => {
                 bgSize="cover"
                 style={{
                   backgroundImage:
-                    "url('https://source.unsplash.com/life-is-your-creation-card-sFTMwH2Tvec')"
+                    "url('https://plus.unsplash.com/premium_photo-1678823283560-4453bbd2a368?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"
                 }}
               ></Box>
             </Box>
 
             <Box
+            
               py={12}
               px={6}
               maxW={{
@@ -111,9 +112,9 @@ const ProductCardHome = () => {
             </Box>
           </Box>
           <Box
+            bgImage={BackgroundHero}
             transition="transform 0.2s"
             _hover={{ transform: "scale(1.05)" }}
-            bg="white"
             _dark={{ bg: "gray.800" }}
             mx={{ lg: 8 }}
             display={{
@@ -145,7 +146,7 @@ const ProductCardHome = () => {
                 bgSize="cover"
                 style={{
                   backgroundImage:
-                    "url('https://source.unsplash.com/metro-design-tour-7Y5oVd3pYus')"
+                    "url('https://images.unsplash.com/photo-1591957971546-ac76c69146d2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGJhbm5lcnxlbnwwfHwwfHx8MA%3D%3D')"
                 }}
               ></Box>
             </Box>
@@ -203,7 +204,7 @@ const ProductCardHome = () => {
         <Box
           transition="transform 0.2s"
           _hover={{ transform: "scale(1.05)" }}
-          bg="white"
+          bgImage={BackgroundHero}
           _dark={{ bg: "gray.800" }}
           mx={{ lg: 8 }}
           display={{ lg: "flex" }}
