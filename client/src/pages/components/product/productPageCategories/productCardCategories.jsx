@@ -47,7 +47,7 @@ const ProductCardDigitalPrintingSmall = () => {
       w="full"
       alignItems="center"
       justifyContent="center"
-      templateColumns="repeat(4, 1fr)"
+      templateColumns="repeat(3, 1fr)"
       rowGap={5}
     >
       {isLoading ? (

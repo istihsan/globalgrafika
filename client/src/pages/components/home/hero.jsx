@@ -35,7 +35,7 @@ export default function Hero() {
           lineHeight={"110%"}
           transform="scale(1)"
           transition={"transform 0.3s ease-in-out"}
-          _hover={{ transform: "scale(1.5)" }}
+          _hover={{ transform: "scale(1.1)" }}
           color={"#2b2120"}
         >
           PRINT YOUR SUCCESS <br />

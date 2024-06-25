@@ -67,7 +67,7 @@ const ProductCarousel = () => {
     ml: `-${currentSlide * 100}%`
   };
   return (
-    <Center>
+    <Center overflow={"hidden"}>
       <Flex maxW="35%" p={10} alignItems="center" justifyContent="center">
         <Flex w="full" pos="relative">
           <Flex w="full" minH={"40vh"} {...carouselStyle}>

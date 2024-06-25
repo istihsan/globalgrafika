@@ -15,6 +15,7 @@ import {
   FaLinkedinIn,
   FaInstagram
 } from "react-icons/fa";
+import Logo from "../../../images/1.jpeg"
 
 export default function footer() {
   return (
@@ -30,7 +31,7 @@ export default function footer() {
       >
         <Flex justify="center" mb={"-2"} color={"whiteAlpha.100"}>
           <Image
-            src="http://placehold.jp/2a2a2c/ffffff/200x100.png?text=Company%20Logo&css=%7B%22font-size%20%22%3A%22%2016px%22%7D"
+            src={Logo}
             alt="Company Logo"
             rounded="lg"
             width={{
@@ -68,15 +69,15 @@ export default function footer() {
             <Link textTransform="uppercase" href="/">
               Home
             </Link>
-            <Link textTransform="uppercase" href="/products">
+            <Link textTransform="uppercase" href="/aboutus">
               About Us
             </Link>
           </Flex>
           <Flex justify="start" direction="column" color={"whiteAlpha.700"}>
-            <Link textTransform="uppercase" href="/faq">
+            <Link textTransform="uppercase" href="/products">
               Products
             </Link>
-            <Link textTransform="uppercase" href="/contactform">
+            <Link textTransform="uppercase" href="/contactus">
               Contact Us
             </Link>
           </Flex>
@@ -119,7 +120,7 @@ export default function footer() {
             </Link>
           </Flex>
           <Flex justify="start" direction="column" color={"whiteAlpha.700"}>
-            <Link textTransform="uppercase" href="/cart">
+            <Link textTransform="uppercase" href="/checkout">
               Cart
             </Link>
             <Link textTransform="uppercase" href="/trackorder">

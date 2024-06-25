@@ -38,6 +38,7 @@ const NavBar = () => {
         Products
       </Link>
       <Button
+        href='/contactus'
         mt={"1%"}
         p={"4"}
         size="sm"
@@ -49,7 +50,7 @@ const NavBar = () => {
           color: "black"
         }}
       >
-        Contact Us!
+        <Link href="/contactus">Contact Us!</Link>
       </Button>
       <Center h={"20px"} mt={"1.1%"} me={"1%"}>
         <Divider orientation="vertical" borderColor={"gray"} />
